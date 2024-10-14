@@ -1,0 +1,803 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://image.0error.net/favicon.png">
+  <link rel="icon" href="https://image.0error.net/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jason">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="参赛队员： x0r，b477eRy，f1oat  总结 最终成绩：3627 最终排名：13 一血数量：3  本次比赛前期一切顺利，后期感觉被py爆了，结果名次就拉了下来，整体题目全部都偏向MISC，打的很迷惑，但是算不上难（RE除外），希望下次国赛能进决赛看看… MISCMISC_签到打开以后压缩包内有一个二维码文件，利用压缩包内的二维码扫描器扫描后即可得到flag Sudoku根据题目判断是一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CISCN2021东北赛区-Maple_root-WriteUp">
+<meta property="og:url" content="https://www.0error.net/2021/06/5b8c955f.html">
+<meta property="og:site_name" content="Jason Chen&#39;s Blog">
+<meta property="og:description" content="参赛队员： x0r，b477eRy，f1oat  总结 最终成绩：3627 最终排名：13 一血数量：3  本次比赛前期一切顺利，后期感觉被py爆了，结果名次就拉了下来，整体题目全部都偏向MISC，打的很迷惑，但是算不上难（RE除外），希望下次国赛能进决赛看看… MISCMISC_签到打开以后压缩包内有一个二维码文件，利用压缩包内的二维码扫描器扫描后即可得到flag Sudoku根据题目判断是一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/06/14/C4ji3PgoHEKqbIw.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/14/hVdZijY4qXEgtym.png">
+<meta property="og:image" content="https://i.loli.net/2021/06/14/EVt4QTjCDYhLNcJ.png">
+<meta property="article:published_time" content="2021-06-14T11:25:19.000Z">
+<meta property="article:modified_time" content="2023-11-08T04:25:37.534Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="CISCN">
+<meta property="article:tag" content="WP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.loli.net/2021/06/14/C4ji3PgoHEKqbIw.png">
+  
+  
+  
+  <title>CISCN2021东北赛区-Maple_root-WriteUp - Jason Chen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.0error.net","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":50,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"bad56014d4869a580f4ebb27cf549354","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?bad56014d4869a580f4ebb27cf549354";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Jiajun Chen&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://image.0error.net/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CISCN2021东北赛区-Maple_root-WriteUp"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-06-14 19:25" pubdate>
+          2021年6月14日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          全文共有 9.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          阅读全文预计需要 82 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CISCN2021东北赛区-Maple_root-WriteUp</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年11月8日 中午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>参赛队员：</p>
+<p><a href="https://www.0error.net/">x0r</a>，b477eRy，<a target="_blank" rel="noopener" href="https://yueqsun.github.io/">f1oat</a></p>
+</blockquote>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><blockquote>
+<p>最终成绩：3627</p>
+<p>最终排名：13</p>
+<p>一血数量：3</p>
+</blockquote>
+<p>本次比赛前期一切顺利，后期感觉被py爆了，结果名次就拉了下来，整体题目全部都偏向MISC，打的很迷惑，但是算不上难（RE除外），希望下次国赛能进决赛看看…</p>
+<h2 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h2><h3 id="MISC-签到"><a href="#MISC-签到" class="headerlink" title="MISC_签到"></a>MISC_签到</h3><p>打开以后压缩包内有一个二维码文件，利用压缩包内的二维码扫描器扫描后即可得到flag</p>
+<h3 id="Sudoku"><a href="#Sudoku" class="headerlink" title="Sudoku"></a>Sudoku</h3><p>根据题目判断是一个数独解密，下载以后在压缩包内有一个flag压缩包和一个数独游戏的excel表格，打开以后是一个数独游戏，直接放入z3解密工具解出答案以后按照从左上到右下的对角线顺序依次输入以后解开flag压缩包得到最终结果</p>
+<h3 id="Vigenere"><a href="#Vigenere" class="headerlink" title="Vigenère"></a>Vigenère</h3><p>下载文件后使用binwalk解出一个<code>b.txt</code>文件，根据题目标题判断是维吉尼亚密码，但是没有找到key，用脚本爆破</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><code class="hljs python2">import itertools<br>import string<br>import sys<br>import textwrap<br><br>&quot;&quot;&quot;<br>Run this script in a shell with the ciphertext to decode on STDIN<br>&quot;&quot;&quot;<br><br>####################################################################################################<br># Vienere encryption and decryption functions<br>####################################################################################################<br><br>def vigenere(plaintext, key, a_is_zero=True):<br>    key = key.lower()<br>    if not all(k in string.ascii_lowercase for k in key):<br>        raise ValueError(&quot;Invalid key &#123;!r&#125;; the key can only consist of English letters&quot;.format(key))<br>    key_iter = itertools.cycle(map(ord, key))<br>    return &quot;&quot;.join(<br>        chr(ord(&#x27;a&#x27;) + (<br>            (next(key_iter) - ord(&#x27;a&#x27;) + ord(letter) - ord(&#x27;a&#x27;))    # Calculate shifted value<br>            + (0 if a_is_zero else 2)                               # Account for non-zero indexing<br>            ) % 26) if letter in string.ascii_lowercase             # Ignore non-alphabetic chars<br>        else letter<br>        for letter in plaintext.lower()<br>    )<br><br>def vigenere_decrypt(ciphertext, key, a_is_zero=True):<br>    # Decryption is encryption with the inverse key<br>    key_ind = [ord(k) - ord(&#x27;a&#x27;) for k in key.lower()]<br>    inverse = &quot;&quot;.join(chr(ord(&#x27;a&#x27;) +<br>            ((26 if a_is_zero else 22) -<br>                (ord(k) - ord(&#x27;a&#x27;))<br>            ) % 26) for k in key)<br>    return vigenere(ciphertext, inverse, a_is_zero)<br><br>def test_vigenere(text, key, a_is_zero=True):<br>    ciphertext = vigenere(text, key, a_is_zero)<br>    plaintext  = vigenere_decrypt(ciphertext, key, a_is_zero)<br>    assert plaintext == text, &quot;&#123;!r&#125; -&gt; &#123;!r&#125; -&gt; &#123;!r&#125; (a &#123;&#125;= 0)&quot;.format(<br>        text, ciphertext, plaintext, &quot;&quot; if a_is_zero else &quot;!&quot;)<br><br># Test that the Vigenere encrypt and decrypt work (or are at least inverses)<br>for text in [&quot;rewind&quot;, &quot;text with spaces&quot;, &quot;pun.ctuation&quot;, &quot;numb3rs&quot;]:<br>    for key in [&quot;iepw&quot;, &quot;aceaq&quot;, &quot;safe&quot;, &quot;pwa&quot;]:<br>        test_vigenere(text, key, True)<br>        test_vigenere(text, key, False)<br><br># Now that we&#x27;re sure that all the vigenere stuff is working...<br><br>####################################################################################################<br># Cipher solver<br>####################################################################################################<br><br># From http://code.activestate.com/recipes/142813-deciphering-caesar-code/<br>ENGLISH_FREQ = (0.0749, 0.0129, 0.0354, 0.0362, 0.1400, 0.0218, 0.0174, 0.0422, 0.0665, 0.0027, 0.0047,<br>                0.0357, 0.0339, 0.0674, 0.0737, 0.0243, 0.0026, 0.0614, 0.0695, 0.0985, 0.0300, 0.0116,<br>                0.0169, 0.0028, 0.0164, 0.0004)<br><br>def compare_freq(text):<br>    &quot;&quot;&quot;<br>    Compare the letter distribution of the given text with normal English. Lower is closer.<br><br>    Performs a simple sum of absolute difference for each letter<br>    &quot;&quot;&quot;<br>    if not text:<br>        return None<br>    text = [t for t in text.lower() if t in string.ascii_lowercase]<br>    freq = [0] * 26<br>    total = float(len(text))<br>    for l in text:<br>        freq[ord(l) - ord(&#x27;a&#x27;)] += 1<br>    return sum(abs(f / total - E) for f, E in zip(freq, ENGLISH_FREQ))<br><br><br>def solve_vigenere(text, key_min_size=None, key_max_size=None, a_is_zero=True):<br>    &quot;&quot;&quot;<br>    Solve a Vigenere cipher by finding keys such that the plaintext resembles English<br><br>    Returns:<br>        the first and second best from the set of best keys for each length<br><br>    This is not a brute force solver; instead, it takes advantage of a weakness in the cipher to<br>    solve in O(n * K^2) where n is the length of the text to decrypt and K is the length of the<br>    longest key to try.<br><br>    The idea is that for any key length, the key is used repeatedly, so if the key is of length k<br>    and we take every k&#x27;th letter, those letters should have approximately the same distribution as<br>    the English language on a whole. Furthermore, since each letter in the key is independent, we<br>    can perform the analysis for each letter in the key by taking every k&#x27;th letter at different<br>    starting offsets. Then, since the letters in the key are independent, we can construct the best<br>    key for a given length by simply joining the best candidates for each position.<br>    &quot;&quot;&quot;<br>    best_keys = []<br>    key_min_size = key_min_size or 1<br>    key_max_size = key_max_size or 20<br><br>    text_letters = [c for c in text.lower() if c in string.ascii_lowercase]<br><br>    for key_length in range(key_min_size, key_max_size):<br>        # Try all possible key lengths<br>        key = [None] * key_length<br>        for key_index in range(key_length):<br>            letters = &quot;&quot;.join(itertools.islice(text_letters, key_index, None, key_length))<br>            shifts = []<br>            for key_char in string.ascii_lowercase:<br>                shifts.append(<br>                    (compare_freq(vigenere_decrypt(letters, key_char, a_is_zero)), key_char)<br>                )<br>            key[key_index] = min(shifts, key=lambda x: x[0])[1]<br>        best_keys.append(&quot;&quot;.join(key))<br>    best_keys.sort(key=lambda key: compare_freq(vigenere_decrypt(text, key, a_is_zero)))<br>    return best_keys[:2]<br><br>CIPHERTEXT = sys.stdin.read().strip()<br><br>print &quot;Solving Vigenere cipher:&quot;<br>print &quot;*&quot; * 80<br>print textwrap.fill(CIPHERTEXT, 80)<br>print &quot;*&quot; * 80<br>for key in reversed(solve_vigenere(CIPHERTEXT)):<br>    print &quot;&quot;<br>    print &quot;Found key: &#123;!r&#125;&quot;.format(key)<br>    print &quot;Solution:&quot;<br>    print &quot;=&quot; * 80<br>    print textwrap.fill(vigenere_decrypt(CIPHERTEXT, key))<br>    print &quot;=&quot; * 80<br><br></code></pre></td></tr></table></figure>
+
+<p>得出了key<code>faisnigslk</code>并得到了明文，最后MD5哈希后提交即为flag</p>
+<h3 id="flagpng"><a href="#flagpng" class="headerlink" title="flagpng"></a>flagpng</h3><p>png宽爆破，使用<code>crc32fix</code>工具修复后flag直接写脸上了。</p>
+<h3 id="easy-rsa"><a href="#easy-rsa" class="headerlink" title="easy_rsa"></a>easy_rsa</h3><p>密码学的模板题…不知道怎么说，直接有现成的解密脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> ContinuedFractions, Arithmetic, RSAvulnerableKeyGenerator<br><span class="hljs-keyword">import</span> binascii<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">hack_RSA</span>(<span class="hljs-params">e,n</span>):<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Finds d knowing (e,n)</span><br><span class="hljs-string">    applying the Wiener continued fraction attack</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    frac = ContinuedFractions.rational_to_contfrac(e, n)<br>    convergents = ContinuedFractions.convergents_from_contfrac(frac)<br><br>    <span class="hljs-keyword">for</span> (k,d) <span class="hljs-keyword">in</span> convergents:<br><br>        <span class="hljs-comment">#check if d is actually the key</span><br>        <span class="hljs-keyword">if</span> k!=<span class="hljs-number">0</span> <span class="hljs-keyword">and</span> (e*d-<span class="hljs-number">1</span>)%k == <span class="hljs-number">0</span>:<br>            phi = (e*d-<span class="hljs-number">1</span>)//k<br>            s = n - phi + <span class="hljs-number">1</span><br>            <span class="hljs-comment"># check if the equation x^2 - s*x + n = 0</span><br>            <span class="hljs-comment"># has integer roots</span><br>            discr = s*s - <span class="hljs-number">4</span>*n<br>            <span class="hljs-keyword">if</span>(discr&gt;=<span class="hljs-number">0</span>):<br>                t = Arithmetic.is_perfect_square(discr)<br>                <span class="hljs-keyword">if</span> t!=-<span class="hljs-number">1</span> <span class="hljs-keyword">and</span> (s+t)%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>:<br>                    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Hacked!&quot;</span>)<br>                    <span class="hljs-keyword">return</span> d<br><br><span class="hljs-comment"># TEST functions</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test_hack_RSA</span>():<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Testing Wiener Attack&quot;</span>)<br><br>    <span class="hljs-keyword">while</span>(times&gt;<span class="hljs-number">0</span>):<br>        e,n,d = RSAvulnerableKeyGenerator.generateKeys(<span class="hljs-number">1024</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;(e,n) is (&quot;</span>, e, <span class="hljs-string">&quot;, &quot;</span>, n, <span class="hljs-string">&quot;)&quot;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;d = &quot;</span>, d)<br><br>        hacked_d = hack_RSA(e, n)<br><br>        <span class="hljs-keyword">if</span> d == hacked_d:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Hack WORKED!&quot;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Hack FAILED&quot;</span>)<br><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;d = &quot;</span>, d, <span class="hljs-string">&quot;, hacked_d = &quot;</span>, hacked_d)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;-------------------------&quot;</span>)<br>        times -= <span class="hljs-number">1</span><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment">#test_is_perfect_square()</span><br>    <span class="hljs-comment">#print(&quot;-------------------------&quot;)</span><br>    <span class="hljs-comment"># test_hack_RSA()</span><br>    e = <span class="hljs-number">932333292871340311536583425772799788581476608800501618257200913635688712797956595013312457091949241781390707236218326324287260096872275100972804737277188856396706341586791458364387568557914836880210799183882901779150174060503451992261799576875742788774243390310560719634789720219992974946820314802939572580353</span><br>    n = <span class="hljs-number">1083178419603719448638799632475202672644727971741749926078568673467491721729891939162664192885208434541370193744078154888072589708037117486860213089624795029582525501783298026959443870222339003799747202112246474259375161019073230508249672271697738321500894559008261698558072028050806042318719109646040290668273</span><br>    c = <span class="hljs-number">629671321698958970045785762020010033814849277886377341930329645318473402676175912514800812974363555981287129835454344489639514895119374277833430799149513068930055615330516662428479865724507981237582779353644800423513485357718723908554543915240117995464419165823214748496569735844685568687856495834900999682293</span><br>    d=hack_RSA(e, n)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;d=&#x27;</span>,d)<br>    m=<span class="hljs-built_in">pow</span>(c, d,n)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;m=&#x27;</span>,m)<br>    b = <span class="hljs-built_in">hex</span>(m)  <span class="hljs-comment">#转换成相同的字符串即&#x27;0x665554&#x27;</span><br>    b = b[<span class="hljs-number">2</span>:]   <span class="hljs-comment">#截取掉&#x27;0x&#x27;</span><br>    c = binascii.a2b_hex(b) <span class="hljs-comment">#转换成ASCii编码的字符串</span><br>    <span class="hljs-built_in">print</span>(c)<br></code></pre></td></tr></table></figure>
+
+<h3 id="huahua"><a href="#huahua" class="headerlink" title="huahua"></a>huahua</h3><p>下载以后发现压缩包受损，在<code>010editor</code>中把压缩包头改为<code>504b0304</code>解压后得到一张png图片，也是缺少png头，加上<code>89504e47</code>后工具中又提示crc报错，那就再把高改一下即可得到flag</p>
+<h2 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h2><h3 id="简单的注入"><a href="#简单的注入" class="headerlink" title="简单的注入"></a>简单的注入</h3><p>发一个登录请求，burp存下来<br>用sqlmap跑出时间盲注，跑出库名表名，<br>然后在lostandfound.user表里<code>select * from user where username=&#39;admin&#39;;</code><br><img src="https://i.loli.net/2021/06/14/C4ji3PgoHEKqbIw.png" srcset="/img/loading.gif" lazyload><br>出密码<code>Admin@12999 ...</code>，登录拿到flag。<br><img src="https://i.loli.net/2021/06/14/hVdZijY4qXEgtym.png" srcset="/img/loading.gif" lazyload alt="Screenshot_2021-06-12_23_40_51.png"></p>
+<h3 id="Flagin"><a href="#Flagin" class="headerlink" title="Flagin"></a>Flagin</h3><p>先用burp抓个包，怀疑是xee<br>waf拦截后去掉<code>&lt;?xml</code>可过<br>最终payload:    </p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">&lt;!DOCTYPE xxe [<br>&lt;!ELEMENT name ANY &gt;<br>&lt;!ENTITY xxe SYSTEM &quot;php://read=convert.base64-encode/resource=/flag.txt&quot; &gt;]&gt;<br>&lt;user&gt;&lt;username&gt;&amp;xxe;&lt;/username&gt;&lt;password&gt;admin&lt;/password&gt;&lt;/user&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="Be-Careful"><a href="#Be-Careful" class="headerlink" title="Be_Careful"></a>Be_Careful</h3><p>上来careful的index.php是个链接<br>点进去是?file&#x3D;a.php来着？ 里面是there is nothing<br>然后改成php伪协议base64读index.php源码<br>看到过滤列表和结尾注释的real_flag.php<br>这里过滤了存flag的文件 但没过滤real_flag.php<br>再读real_flag.php的源码 构造?a获得flag<br><img src="https://i.loli.net/2021/06/14/EVt4QTjCDYhLNcJ.png" srcset="/img/loading.gif" lazyload alt="捕获.PNG"></p>
+<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><h3 id="Sign-me-up"><a href="#Sign-me-up" class="headerlink" title="Sign_me_up"></a>Sign_me_up</h3><p>下载打开文件以后发现是一大段的<code>BASE64</code>加密后的内容，疑似多次套娃，多次解密以后即得到密文内容<code>Welcome to ciscn. flag&#123;4b7fb332177a5df1b4aa6ba53e29d8fd&#125;</code></p>
+<h3 id="Super-Man"><a href="#Super-Man" class="headerlink" title="Super_Man"></a>Super_Man</h3><p>依然是<code>010editor</code>打开图片，文件头88改为89后图片变为超人图片，接着在文件尾找到salted，放入<code>cyperchef</code>解两层即可得到flag</p>
+<h3 id="凯撒大帝的Unicode"><a href="#凯撒大帝的Unicode" class="headerlink" title="凯撒大帝的Unicode"></a>凯撒大帝的Unicode</h3><p>根据unicode提示，将unicode转化为数字后尝试偏移(25000-24000)(忽略负数)到ascii区域进行解码<br>偏移到24591时得到字符串<code>&#39;k_\\Here&amp;comes$the]un1c0de[f1Ag1s&#123;3c3b832287a5578b3511fcd7486f4ef9&#125;&amp;%O##%&amp;P!#TQR%&quot;&amp;$&#39;</code><br>脚本:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python">f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;caesar&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>, encoding=<span class="hljs-string">&quot;utf-8&quot;</span>).read()<br><br>f = f.split(<span class="hljs-string">&quot;\n&quot;</span>)[<span class="hljs-number">1</span>]<br>f = [<span class="hljs-built_in">int</span>(c.encode(<span class="hljs-string">&quot;unicode-escape&quot;</span>).decode(<span class="hljs-string">&quot;utf-8&quot;</span>).replace(<span class="hljs-string">&quot;\\u&quot;</span>, <span class="hljs-string">&quot;&quot;</span>), <span class="hljs-number">16</span>) <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> f]<br>offset = <span class="hljs-number">25000</span><br><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>    <span class="hljs-comment"># 尝试过用unicode还原回去 没找到</span><br>    <span class="hljs-comment"># print(&#x27;&#x27;.join([hex(b-offset).replace(&quot;0x&quot;, &quot;\\u0&quot; if len(hex(b-offset).replace(&quot;-&quot;, &quot;&quot;)) == 5 else &quot;\\u&quot;).encode().decode(&quot;unicode-escape&quot;) for b in f]))</span><br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;offset:<span class="hljs-subst">&#123;offset&#125;</span> result: &quot;</span> + <span class="hljs-string">&#x27;&#x27;</span>.join([<span class="hljs-built_in">chr</span>(b-offset) <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> f]))<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">continue</span><br>    <span class="hljs-keyword">finally</span>:<br>        offset -= <span class="hljs-number">1</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;-------&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>可读出flag</p>
+<h3 id="cipertext"><a href="#cipertext" class="headerlink" title="cipertext"></a>cipertext</h3><p>古典密码题…打开之后一段ook密码和一段BrainFuck以及一段jsfuck密码解密以后连起来就是flag</p>
+<h2 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h2><h3 id="RE-签到"><a href="#RE-签到" class="headerlink" title="RE_签到"></a>RE_签到</h3><p>本题拿入后在IDA7.5中多次查看无果，只能分析出是一个调用了官方库的哈希加密工具，后来在Linux环境下分别使用了<code>strings</code>+<code>greg</code>和<code>cat</code>查看，发现在cat后文件的最后有一段形如<code>flag&#123;xxx&#125;</code>的内容，即为最后答案，但是这里有一点很不解的就是为何使用strings无法正常找到flag段，这一点有待研究。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/">#CTF</a>
+      
+        <a href="/tags/CISCN/">#CISCN</a>
+      
+        <a href="/tags/WP/">#WP</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CISCN2021东北赛区-Maple_root-WriteUp</div>
+      <div>https://www.0error.net/2021/06/5b8c955f.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jason</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年6月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/156af401.html" title="【摘录】一个技术男的自白">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【摘录】一个技术男的自白</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/ecc186f9.html" title="高级程序设计-期末复习习题组">
+                        <span class="hidden-mobile">高级程序设计-期末复习习题组</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'cjjcn/cjjcn.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'Comment');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-copyright"></i> <a href="https://www.0error.net" target="_blank" rel="nofollow noopener"><span>2017 - 2024</span></a><br> <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">本网站由<img border="0" height="20" src="https://image.0error.net/img/2022/又拍云_logo2.png" srcset="/img/loading.gif" lazyload />提供CDN加速/云存储服务</a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      陇ICP备2021000723号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

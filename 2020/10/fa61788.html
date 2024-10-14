@@ -1,0 +1,779 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://image.0error.net/favicon.png">
+  <link rel="icon" href="https://image.0error.net/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Jason">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Lets Warm UpIf I told you a word started with 0x70 in hexadecimal, what would it start with in ASCII? 这应该就是签到题了吧？爱了爱了，十六进制转十进制再打表（突然ACM）转ASCII，得到‘p’，按照格式输入即可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="picoCTF-day1">
+<meta property="og:url" content="https://www.0error.net/2020/10/fa61788.html">
+<meta property="og:site_name" content="Jason Chen&#39;s Blog">
+<meta property="og:description" content="Lets Warm UpIf I told you a word started with 0x70 in hexadecimal, what would it start with in ASCII? 这应该就是签到题了吧？爱了爱了，十六进制转十进制再打表（突然ACM）转ASCII，得到‘p’，按照格式输入即可">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-11T14:34:26.000Z">
+<meta property="article:modified_time" content="2023-11-08T04:25:37.556Z">
+<meta property="article:author" content="Jason">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>picoCTF-day1 - Jason Chen&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.0error.net","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":50,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":"bad56014d4869a580f4ebb27cf549354","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?bad56014d4869a580f4ebb27cf549354";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Jiajun Chen&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://image.0error.net/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="picoCTF-day1"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-10-11 22:34" pubdate>
+          2020年10月11日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          全文共有 3.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          阅读全文预计需要 27 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">picoCTF-day1</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2023年11月8日 中午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Lets-Warm-Up"><a href="#Lets-Warm-Up" class="headerlink" title="Lets Warm Up"></a>Lets Warm Up</h1><p>If I told you a word started with 0x70 in hexadecimal, what would it start with in ASCII?</p>
+<p>这应该就是签到题了吧？爱了爱了，十六进制转十进制再打表（突然ACM）转ASCII，得到‘p’，按照格式输入即可</p>
+<span id="more"></span>
+<h1 id="The-Numbers"><a href="#The-Numbers" class="headerlink" title="The Numbers"></a>The Numbers</h1><p>下载图片后得到一串数字，根据格式盲猜开头是picoCTF，然后又是一波打表- -，根据这几个字母和他们的数字就硬解出了这道题，拿到了Flag</p>
+<h1 id="2Warm"><a href="#2Warm" class="headerlink" title="2Warm"></a>2Warm</h1><p>进制转换，啊这，这才是签到题吧- -</p>
+<h1 id="Insp3ct0r"><a href="#Insp3ct0r" class="headerlink" title="Insp3ct0r"></a>Insp3ct0r</h1><p>打开网页源代码，找到1&#x2F;3的Flag，然后观察代码，发现一个css和一个js，可能答案藏在这里，打开之后分别找到第二第三部分，合并即可</p>
+<h1 id="Glory-of-Garden"><a href="#Glory-of-Garden" class="headerlink" title="Glory of Garden"></a>Glory of Garden</h1><p>下载图片，一看就是老套路，第一页题目盲猜不会太深，直接开stegsolve看图片信息，果然找到了flag</p>
+<h1 id="vault-door-training"><a href="#vault-door-training" class="headerlink" title="vault-door-training"></a>vault-door-training</h1><p>题目太长不看，下载java文件打开源码即得flag</p>
+<h1 id="Warmed-UP"><a href="#Warmed-UP" class="headerlink" title="Warmed UP"></a>Warmed UP</h1><p>梅开二度，仿照前面进制转换</p>
+<h1 id="vault-door-1"><a href="#vault-door-1" class="headerlink" title="vault-door-1"></a>vault-door-1</h1><p>本题是前面vault变种，打开源码看应该是一个登录的密码核对的处理机制。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">VaultDoor1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String args[])</span> &#123;<br>        <span class="hljs-type">VaultDoor1</span> <span class="hljs-variable">vaultDoor</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">VaultDoor1</span>();<br>        <span class="hljs-type">Scanner</span> <span class="hljs-variable">scanner</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Scanner</span>(System.in);<br>        System.out.print(<span class="hljs-string">&quot;Enter vault password: &quot;</span>);<br>	<span class="hljs-type">String</span> <span class="hljs-variable">userInput</span> <span class="hljs-operator">=</span> scanner.next();<br>	<span class="hljs-type">String</span> <span class="hljs-variable">input</span> <span class="hljs-operator">=</span> userInput.substring(<span class="hljs-string">&quot;picoCTF&#123;&quot;</span>.length(),userInput.length()-<span class="hljs-number">1</span>);<br>	<span class="hljs-keyword">if</span> (vaultDoor.checkPassword(input)) &#123;<br>	    System.out.println(<span class="hljs-string">&quot;Access granted.&quot;</span>);<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>	    System.out.println(<span class="hljs-string">&quot;Access denied!&quot;</span>);<br>	&#125;<br>    &#125;<br><br>    <span class="hljs-comment">// I came up with a more secure way to check the password without putting</span><br>    <span class="hljs-comment">// the password itself in the source code. I think this is going to be</span><br>    <span class="hljs-comment">// UNHACKABLE!! I hope Dr. Evil agrees...</span><br>    <span class="hljs-comment">//</span><br>    <span class="hljs-comment">// -Minion #8728</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">checkPassword</span><span class="hljs-params">(String password)</span> &#123;<br>        <span class="hljs-keyword">return</span> password.length() == <span class="hljs-number">32</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">0</span>)  == <span class="hljs-string">&#x27;d&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">29</span>) == <span class="hljs-string">&#x27;3&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">4</span>)  == <span class="hljs-string">&#x27;r&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">2</span>)  == <span class="hljs-string">&#x27;5&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">23</span>) == <span class="hljs-string">&#x27;r&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">3</span>)  == <span class="hljs-string">&#x27;c&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">17</span>) == <span class="hljs-string">&#x27;4&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">1</span>)  == <span class="hljs-string">&#x27;3&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">7</span>)  == <span class="hljs-string">&#x27;b&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">10</span>) == <span class="hljs-string">&#x27;_&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">5</span>)  == <span class="hljs-string">&#x27;4&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">9</span>)  == <span class="hljs-string">&#x27;3&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">11</span>) == <span class="hljs-string">&#x27;t&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">15</span>) == <span class="hljs-string">&#x27;c&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">8</span>)  == <span class="hljs-string">&#x27;l&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">12</span>) == <span class="hljs-string">&#x27;H&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">20</span>) == <span class="hljs-string">&#x27;c&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">14</span>) == <span class="hljs-string">&#x27;_&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">6</span>)  == <span class="hljs-string">&#x27;m&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">24</span>) == <span class="hljs-string">&#x27;5&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">18</span>) == <span class="hljs-string">&#x27;r&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">13</span>) == <span class="hljs-string">&#x27;3&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">19</span>) == <span class="hljs-string">&#x27;4&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">21</span>) == <span class="hljs-string">&#x27;T&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">16</span>) == <span class="hljs-string">&#x27;H&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">27</span>) == <span class="hljs-string">&#x27;f&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">30</span>) == <span class="hljs-string">&#x27;b&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">25</span>) == <span class="hljs-string">&#x27;_&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">22</span>) == <span class="hljs-string">&#x27;3&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">28</span>) == <span class="hljs-string">&#x27;6&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">26</span>) == <span class="hljs-string">&#x27;f&#x27;</span> &amp;&amp;<br>               password.charAt(<span class="hljs-number">31</span>) == <span class="hljs-string">&#x27;0&#x27;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>但是想要破解密码需要一点点技巧（一个一个手动核对实在是太麻烦了- -），感谢lrj学长的精心指导，让我想起了vs code可以对同样的字符片段进行批量操作，把前面的字符全部删除之后，利用python，把&#x3D;&#x3D;变成：，然后以数字作为key进行sort排序，然后批量提取即可得到flag，这个记录可圈可点</p>
+<h1 id="what’s-a-net-cat"><a href="#what’s-a-net-cat" class="headerlink" title="what’s a net cat?"></a>what’s a net cat?</h1><p>没啥说的，打开Kali，打开终端</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">nc jupiter<span class="hljs-selector-class">.challenges</span><span class="hljs-selector-class">.picoctf</span><span class="hljs-selector-class">.org</span> <span class="hljs-number">54271</span><br></code></pre></td></tr></table></figure>
+<p>即可得到flag</p>
+<h1 id="Strings-it"><a href="#Strings-it" class="headerlink" title="Strings it"></a>Strings it</h1><p>这个下载下来，hint说的是不用打开，那就是hexo了，打开根据编码搜索‘ctf’无果，更换大小写‘CTF’查找几次之后即找到了flag</p>
+<h1 id="Easy1"><a href="#Easy1" class="headerlink" title="Easy1"></a>Easy1</h1><p>这不就是OI的打表题吗，爱了爱了，根据给的table把他进行解码就可以得到flag</p>
+<h1 id="where-are-the-robots"><a href="#where-are-the-robots" class="headerlink" title="where are the robots"></a>where are the robots</h1><p>打开链接以后，根据题目，应该指的是robot.txt，那就访问robot，又得到一个html，即可得到flag</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>dalao们都说picoCTF的题循序渐进，适合入门，看来确实是这样，今后就在这儿开坑了</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CTF/">#CTF</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>picoCTF-day1</div>
+      <div>https://www.0error.net/2020/10/fa61788.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Jason</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年10月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/10/992fe380.html" title="Caser-Pass-Tool1-C++">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Caser-Pass-Tool1-C++</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/10/64d83881.html" title="Notes-queue队列">
+                        <span class="hidden-mobile">Notes-queue队列</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'cjjcn/cjjcn.github.io');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'Comment');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-copyright"></i> <a href="https://www.0error.net" target="_blank" rel="nofollow noopener"><span>2017 - 2024</span></a><br> <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">本网站由<img border="0" height="20" src="https://image.0error.net/img/2022/又拍云_logo2.png" srcset="/img/loading.gif" lazyload />提供CDN加速/云存储服务</a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      陇ICP备2021000723号-1
+    </a>
+  </span>
+  
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
