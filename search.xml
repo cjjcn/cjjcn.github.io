@@ -4,6 +4,29 @@
   
     
     <entry>
+      <title>升级到Windows 11 24h2版本后惠普打印机报错spl error 11-1114 line 601</title>
+      <link href="/2024/12/63214.html"/>
+      <url>/2024/12/63214.html</url>
+      
+        <content type="html"><![CDATA[<p>After upgrading to Windows 11 version 24H2, the HP printer reports an SPL error 11-1114 at line 601.</p><h1 id="English-Version-via-ChatGPT"><a href="#English-Version-via-ChatGPT" class="headerlink" title="English Version(via: ChatGPT)"></a>English Version(via: ChatGPT)</h1><h2 id="Issue-Description"><a href="#Issue-Description" class="headerlink" title="Issue Description"></a>Issue Description</h2><p>After upgrading to Windows 11 version 24H2, I found that printing documents with the HP Laser MFP 1136w Printer results in a page of error message being printed. However, printing PDFs via HP Smart Assistant works fine. I have tried various solutions, such as using HP Smart to repair, changing network connection methods, and re-adding the printer, but none of these have worked.</p><p><img src="https://image.0error.net/2024/printer-error-page.jpg" alt="printer error page"></p><h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>After troubleshooting, I found that after upgrading to 24H2, Windows assigns the default driver Microsoft IPP Class Driver to the printer. To resolve the issue, go to Settings &gt; Bluetooth &amp; Devices &gt; Printers &amp; Scanners, and open the specific printer settings page. Then, click on Printer Properties, navigate to the Advanced tab, and change the driver to the printer’s designated HP driver. This should resolve the issue.</p><p>  <img src="https://image.0error.net/2024/printer-setting-fig.png" alt="printer setting"></p><h1 id="中文版本"><a href="#中文版本" class="headerlink" title="中文版本"></a>中文版本</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>近日升级到Windows 11 24h2版本后发现使用HP Laser MFP 1136w Printer打印文档皆会打出一页报错页面，内容如下图所示，但是使用HP Smart Assistant打印PDF一切正常，尝试了使用HP SMART进行修复，修改网络连接方式，重新添加打印机等等方式皆无果。</p><p><img src="https://image.0error.net/2024/printer-error-page.jpg" alt="printer error page"></p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>排查后发现是升级到24h2后Windows为打印机分配的驱动程序会回到默认的<code>Microsoft IPP Class Driver</code> ，需要到设置-蓝牙和其他设备-打印机和扫描仪-具体打印机设置页-打印机属性，然后在选项卡中选择<code>高级</code>页面，接着把驱动程序变更为HP指定的打印机驱动程序即可解决该问题。</p><p><img src="https://image.0error.net/2024/printer-setting-fig.png" alt="printer setting"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> bugs </tag>
+            
+            <tag> Windows </tag>
+            
+            <tag> Career </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2024秋招字节跳动朝夕光年UE4客户端开发实习生岗笔试题目</title>
       <link href="/2024/01/41724.html"/>
       <url>/2024/01/41724.html</url>
