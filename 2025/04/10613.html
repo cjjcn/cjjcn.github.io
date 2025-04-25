@@ -16,31 +16,28 @@
   <meta name="author" content="Jason">
   <meta name="keywords" content="">
   
-    <meta name="description" content="After upgrading to Windows 11 version 24H2, the HP printer reports an SPL error 11-1114 at line 601. English Version(via: ChatGPT)Issue DescriptionAfter upgrading to Windows 11 version 24H2, I found t">
+    <meta name="description" content="近期电脑随着几次系统更新后，Clash总是出现端口绑定失败的问题，即某次启动电脑后，发现clash的socks代理不能正常工作，后来在任务管理器杀掉clash-core进程后重启此问题能得到缓解，但是这次用了不少办法依然无效，clash日志内报错为Start Mixed(http+socks) server error: listen tcp 127.0.0.1:7891: bind: An at">
 <meta property="og:type" content="article">
-<meta property="og:title" content="升级到Windows 11 24h2版本后惠普打印机报错spl error 11-1114 line 601">
-<meta property="og:url" content="https://www.0error.net/2024/12/63214.html">
+<meta property="og:title" content="Clash4Windows启动后日志显示端口被占用导致绑定失败解决方案">
+<meta property="og:url" content="https://www.0error.net/2025/04/10613.html">
 <meta property="og:site_name" content="Jason Chen&#39;s Blog">
-<meta property="og:description" content="After upgrading to Windows 11 version 24H2, the HP printer reports an SPL error 11-1114 at line 601. English Version(via: ChatGPT)Issue DescriptionAfter upgrading to Windows 11 version 24H2, I found t">
+<meta property="og:description" content="近期电脑随着几次系统更新后，Clash总是出现端口绑定失败的问题，即某次启动电脑后，发现clash的socks代理不能正常工作，后来在任务管理器杀掉clash-core进程后重启此问题能得到缓解，但是这次用了不少办法依然无效，clash日志内报错为Start Mixed(http+socks) server error: listen tcp 127.0.0.1:7891: bind: An at">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://image.0error.net/2024/printer-error-page.jpg">
-<meta property="og:image" content="https://image.0error.net/2024/printer-setting-fig.png">
-<meta property="og:image" content="https://image.0error.net/2024/printer-error-page.jpg">
-<meta property="og:image" content="https://image.0error.net/2024/printer-setting-fig.png">
-<meta property="article:published_time" content="2024-12-26T05:41:56.000Z">
-<meta property="article:modified_time" content="2024-12-26T06:02:00.895Z">
+<meta property="og:image" content="https://image.0error.net/2025/1317599-20250418112717081-583647463.png">
+<meta property="og:image" content="https://image.0error.net/2025/1317599-20250418112801212-1763993110.png">
+<meta property="article:published_time" content="2025-04-25T08:26:08.000Z">
+<meta property="article:modified_time" content="2025-04-25T08:30:51.415Z">
 <meta property="article:author" content="Jason">
-<meta property="article:tag" content="bugs">
 <meta property="article:tag" content="Windows">
-<meta property="article:tag" content="Career">
+<meta property="article:tag" content="Bugs">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://image.0error.net/2024/printer-error-page.jpg">
+<meta name="twitter:image" content="https://image.0error.net/2025/1317599-20250418112717081-583647463.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>升级到Windows 11 24h2版本后惠普打印机报错spl error 11-1114 line 601 - Jason Chen&#39;s Blog</title>
+  <title>Clash4Windows启动后日志显示端口被占用导致绑定失败解决方案 - Jason Chen&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -234,7 +231,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="升级到Windows 11 24h2版本后惠普打印机报错spl error 11-1114 line 601"></span>
+            <span id="subtitle" data-typed-text="Clash4Windows启动后日志显示端口被占用导致绑定失败解决方案"></span>
           
         </div>
 
@@ -245,8 +242,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-12-26 13:41" pubdate>
-          2024年12月26日 下午
+        <time datetime="2025-04-25 16:26" pubdate>
+          2025年4月25日 下午
         </time>
       </span>
     
@@ -258,7 +255,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          全文共有 1.1k 字
+          全文共有 661 字
         
       </span>
     
@@ -270,7 +267,7 @@
         
         
           <!-- compatible with older versions-->
-          阅读全文预计需要 10 分钟
+          阅读全文预计需要 6 分钟
         
       </span>
     
@@ -308,13 +305,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">升级到Windows 11 24h2版本后惠普打印机报错spl error 11-1114 line 601</h1>
+            <h1 style="display: none">Clash4Windows启动后日志显示端口被占用导致绑定失败解决方案</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2024年12月26日 下午
+                    本文最后更新于：2025年4月25日 下午
                   
                 
               </p>
@@ -322,16 +319,8 @@
             
               <div class="markdown-body">
                 
-                <p>After upgrading to Windows 11 version 24H2, the HP printer reports an SPL error 11-1114 at line 601.</p>
-<h1 id="English-Version-via-ChatGPT"><a href="#English-Version-via-ChatGPT" class="headerlink" title="English Version(via: ChatGPT)"></a>English Version(via: ChatGPT)</h1><h2 id="Issue-Description"><a href="#Issue-Description" class="headerlink" title="Issue Description"></a>Issue Description</h2><p>After upgrading to Windows 11 version 24H2, I found that printing documents with the HP Laser MFP 1136w Printer results in a page of error message being printed. However, printing PDFs via HP Smart Assistant works fine. I have tried various solutions, such as using HP Smart to repair, changing network connection methods, and re-adding the printer, but none of these have worked.</p>
-<p><img src="https://image.0error.net/2024/printer-error-page.jpg" srcset="/img/loading.gif" lazyload alt="printer error page"></p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>After troubleshooting, I found that after upgrading to 24H2, Windows assigns the default driver Microsoft IPP Class Driver to the printer. To resolve the issue, go to Settings &gt; Bluetooth &amp; Devices &gt; Printers &amp; Scanners, and open the specific printer settings page. Then, click on Printer Properties, navigate to the Advanced tab, and change the driver to the printer’s designated HP driver. This should resolve the issue.</p>
-<p>  <img src="https://image.0error.net/2024/printer-setting-fig.png" srcset="/img/loading.gif" lazyload alt="printer setting"></p>
-<h1 id="中文版本"><a href="#中文版本" class="headerlink" title="中文版本"></a>中文版本</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>近日升级到Windows 11 24h2版本后发现使用HP Laser MFP 1136w Printer打印文档皆会打出一页报错页面，内容如下图所示，但是使用HP Smart Assistant打印PDF一切正常，尝试了使用HP SMART进行修复，修改网络连接方式，重新添加打印机等等方式皆无果。</p>
-<p><img src="https://image.0error.net/2024/printer-error-page.jpg" srcset="/img/loading.gif" lazyload alt="printer error page"></p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>排查后发现是升级到24h2后Windows为打印机分配的驱动程序会回到默认的<code>Microsoft IPP Class Driver</code> ，需要到设置-蓝牙和其他设备-打印机和扫描仪-具体打印机设置页-打印机属性，然后在选项卡中选择<code>高级</code>页面，接着把驱动程序变更为HP指定的打印机驱动程序即可解决该问题。</p>
-<p><img src="https://image.0error.net/2024/printer-setting-fig.png" srcset="/img/loading.gif" lazyload alt="printer setting"></p>
-
+                <p>近期电脑随着几次系统更新后，Clash总是出现端口绑定失败的问题，即某次启动电脑后，发现clash的socks代理不能正常工作，后来在任务管理器杀掉clash-core进程后重启此问题能得到缓解，但是这次用了不少办法依然无效，clash日志内报错为<code>Start Mixed(http+socks) server error: listen tcp 127.0.0.1:7891: bind: An attempt was made to access a socket in a way forbidden by its access permissions.</code><br><img src="https://image.0error.net/2025/1317599-20250418112717081-583647463.png" srcset="/img/loading.gif" lazyload alt="image"><br>最后看到<a target="_blank" rel="noopener" href="https://frytea.com/archives/564/">烹茶室的解决方案</a>，怀疑确实是系统端口占用范围的问题。通过PowerShell指令netsh i v4 show dynamicport tcp 发现占用端口范围是从1024到13977.<br><img src="https://image.0error.net/2025/1317599-20250418112801212-1763993110.png" srcset="/img/loading.gif" lazyload alt="image"><br>然后通过以下指令进行修改，然后重启电脑，问题解决。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cmd"># 这两条命令来自博客 https://blog.csdn.<span class="hljs-built_in">net</span>/tian2342/article/details/<span class="hljs-number">108934646</span><br>netsh int ipv4 <span class="hljs-built_in">set</span> dynamicport tcp <span class="hljs-built_in">start</span>=<span class="hljs-number">49152</span> num=<span class="hljs-number">16383</span><br>确定。<br>netsh int ipv4 <span class="hljs-built_in">set</span> dynamicport udp <span class="hljs-built_in">start</span>=<span class="hljs-number">49152</span> num=<span class="hljs-number">16383</span><br>确定。<br><br># 这条命令来自 https://github.com/Fndroid/clash_for_windows_pkg/issues/<span class="hljs-number">671</span><br>netsh int ipv4 <span class="hljs-built_in">set</span> dynamic tcp <span class="hljs-built_in">start</span>=<span class="hljs-number">49152</span> num=<span class="hljs-number">16384</span><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -343,11 +332,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/bugs/">#bugs</a>
-      
         <a href="/tags/Windows/">#Windows</a>
       
-        <a href="/tags/Career/">#Career</a>
+        <a href="/tags/Bugs/">#Bugs</a>
       
     </div>
   
@@ -359,8 +346,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>升级到Windows 11 24h2版本后惠普打印机报错spl error 11-1114 line 601</div>
-      <div>https://www.0error.net/2024/12/63214.html</div>
+      <div>Clash4Windows启动后日志显示端口被占用导致绑定失败解决方案</div>
+      <div>https://www.0error.net/2025/04/10613.html</div>
     </div>
     <div class="license-meta">
       
@@ -372,7 +359,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年12月26日</div>
+          <div>2025年4月25日</div>
         </div>
       
       
@@ -404,9 +391,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/10613.html" title="Clash4Windows启动后日志显示端口被占用导致绑定失败解决方案">
+                      <a href="/2025/04/43888.html" title="Zotero-translate插件配置Google访问代理方法">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Clash4Windows启动后日志显示端口被占用导致绑定失败解决方案</span>
+                        <span class="hidden-mobile">Zotero-translate插件配置Google访问代理方法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -414,8 +401,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/41724.html" title="2024秋招字节跳动朝夕光年UE4客户端开发实习生岗笔试题目">
-                        <span class="hidden-mobile">2024秋招字节跳动朝夕光年UE4客户端开发实习生岗笔试题目</span>
+                      <a href="/2024/12/63214.html" title="升级到Windows 11 24h2版本后惠普打印机报错spl error 11-1114 line 601">
+                        <span class="hidden-mobile">升级到Windows 11 24h2版本后惠普打印机报错spl error 11-1114 line 601</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

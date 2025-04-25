@@ -4,6 +4,48 @@
   
     
     <entry>
+      <title>Zotero-translate插件配置Google访问代理方法</title>
+      <link href="/2025/04/43888.html"/>
+      <url>/2025/04/43888.html</url>
+      
+        <content type="html"><![CDATA[<p>在左上角菜单栏选择【编辑】-【设置】，在设置页面内选择高级选项卡，找到【设置编辑器】选项并打开<br><img src="https://image.0error.net/2025/20250425162956090.png"><br>接下来搜索<code>network.proxy.socks</code>，将其中的<code>network.proxy.socks</code>设置为你的代理地址，<code>network.proxy.socks_port</code>设置为你的代理端口，将<code>network.proxy.socks_remote_dns</code>设置为<code>true</code>，这表明启用了代理的DNS，这样代理配置就完成了。<br><img src="https://image.0error.net/2025/20250425163022793.png"><br>接着找到<code>network.proxy.type</code>，并将其配置为<code>1</code>，即代表启用了代理设置，此刻关闭窗口后，即可正常使用代理访问Google翻译功能。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Scholar </tag>
+            
+            <tag> Zotero </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Clash4Windows启动后日志显示端口被占用导致绑定失败解决方案</title>
+      <link href="/2025/04/10613.html"/>
+      <url>/2025/04/10613.html</url>
+      
+        <content type="html"><![CDATA[<p>近期电脑随着几次系统更新后，Clash总是出现端口绑定失败的问题，即某次启动电脑后，发现clash的socks代理不能正常工作，后来在任务管理器杀掉clash-core进程后重启此问题能得到缓解，但是这次用了不少办法依然无效，clash日志内报错为<code>Start Mixed(http+socks) server error: listen tcp 127.0.0.1:7891: bind: An attempt was made to access a socket in a way forbidden by its access permissions.</code><br><img src="https://image.0error.net/2025/1317599-20250418112717081-583647463.png" alt="image"><br>最后看到<a href="https://frytea.com/archives/564/">烹茶室的解决方案</a>，怀疑确实是系统端口占用范围的问题。通过PowerShell指令netsh i v4 show dynamicport tcp 发现占用端口范围是从1024到13977.<br><img src="https://image.0error.net/2025/1317599-20250418112801212-1763993110.png" alt="image"><br>然后通过以下指令进行修改，然后重启电脑，问题解决。</p><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cmd"># 这两条命令来自博客 https://blog.csdn.<span class="hljs-built_in">net</span>/tian2342/article/details/<span class="hljs-number">108934646</span><br>netsh int ipv4 <span class="hljs-built_in">set</span> dynamicport tcp <span class="hljs-built_in">start</span>=<span class="hljs-number">49152</span> num=<span class="hljs-number">16383</span><br>确定。<br>netsh int ipv4 <span class="hljs-built_in">set</span> dynamicport udp <span class="hljs-built_in">start</span>=<span class="hljs-number">49152</span> num=<span class="hljs-number">16383</span><br>确定。<br><br># 这条命令来自 https://github.com/Fndroid/clash_for_windows_pkg/issues/<span class="hljs-number">671</span><br>netsh int ipv4 <span class="hljs-built_in">set</span> dynamic tcp <span class="hljs-built_in">start</span>=<span class="hljs-number">49152</span> num=<span class="hljs-number">16384</span><br></code></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Windows </tag>
+            
+            <tag> Bugs </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>升级到Windows 11 24h2版本后惠普打印机报错spl error 11-1114 line 601</title>
       <link href="/2024/12/63214.html"/>
       <url>/2024/12/63214.html</url>
