@@ -4,6 +4,27 @@
   
     
     <entry>
+      <title>TCT计算病理学文献检索总结</title>
+      <link href="/2025/04/57150.html"/>
+      <url>/2025/04/57150.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="PubMed"><a href="#PubMed" class="headerlink" title="PubMed"></a>PubMed</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs text">(<br>  pathology[Title/Abstract] <br>  OR cytopathology[Title/Abstract] <br>  OR &quot;computational pathology&quot;[Title/Abstract] <br>  OR &quot;digital pathology&quot;[Title/Abstract] <br>  OR &quot;liquid-based cytology&quot;[Title/Abstract] <br>  OR LBC[Title/Abstract] <br>  OR TCT[Title/Abstract] <br>  OR &quot;cervical cancer&quot;[Title/Abstract] <br>  OR &quot;cervical neoplasms&quot;[MeSH Terms] <br>  OR &quot;cervical cytology&quot;[Title/Abstract]<br>  OR Pap[Title/Abstract]<br>  OR MIL[Title/Abstract] <br>  OR &quot;multiple instance learning&quot;[Title/Abstract] <br>  OR &quot;weakly supervised learning&quot;[Title/Abstract] <br>  OR &quot;self-supervised learning&quot;[Title/Abstract] <br>  OR &quot;attention mechanism&quot;[Title/Abstract] <br>  OR &quot;transformer&quot;[Title/Abstract]<br>)<br>AND (&quot;2020&quot;[Date - Publication] : &quot;3000&quot;[Date - Publication])<br></code></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Scholar </tag>
+            
+            <tag> TCT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Zotero-translate插件配置Google访问代理方法</title>
       <link href="/2025/04/43888.html"/>
       <url>/2025/04/43888.html</url>
