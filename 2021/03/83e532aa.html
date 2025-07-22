@@ -13,7 +13,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Jason">
+  <meta name="author" content="Jason Chen">
   <meta name="keywords" content="">
   
     <meta name="description" content="什么是动态数组这里先引入一段对动态数组的说法  动态数组是相对于静态数组而言，从“动”字我们也可以看出它的灵活性，静态数组的长度是预先定义好的，在整个程序中，一旦给定大小后就无法改变。而动态数组则不然，它可以随程序需要而重新指定大小。动态数组的内存空间是从堆动态分配的。是通过执行代码而为其分配存储空间。当程序执行到我们编写的分配语句时，才为其分配。对于静态数组，其创建非常方便，使用完也无需释放，要">
@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-14T01:27:04.000Z">
 <meta property="article:modified_time" content="2023-11-08T04:25:37.538Z">
-<meta property="article:author" content="Jason">
+<meta property="article:author" content="Jason Chen">
 <meta property="article:tag" content="C">
 <meta property="article:tag" content="指针">
 <meta name="twitter:card" content="summary_large_image">
@@ -370,7 +370,7 @@
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>Jason</div>
+          <div>Jason Chen</div>
         </div>
       
       
@@ -434,29 +434,21 @@
   
     <article id="comments" lazyload>
       
+  <div id="gitalk-container"></div>
   <script type="text/javascript">
-    Fluid.utils.loadComments('#comments', function() {
-      var light = 'github-light';
-      var dark = 'github-dark';
-      var schema = document.documentElement.getAttribute('data-user-color-scheme');
-      if (schema === 'dark') {
-        schema = dark;
-      } else {
-        schema = light;
-      }
-      window.UtterancesThemeLight = light;
-      window.UtterancesThemeDark = dark;
-      var s = document.createElement('script');
-      s.setAttribute('src', 'https://utteranc.es/client.js');
-      s.setAttribute('repo', 'cjjcn/cjjcn.github.io');
-      s.setAttribute('issue-term', 'pathname');
-      
-      s.setAttribute('label', 'Comment');
-      
-      s.setAttribute('theme', schema);
-      s.setAttribute('crossorigin', 'anonymous');
-      document.getElementById('comments').appendChild(s);
-    })
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"e7441e45223030475df5","clientSecret":"1b05699fc25cd4a804acbb167ea9d510b5376984","repo":"cjjcn.github.io","owner":"cjjcn","admin":["cjjcn"],"language":"zh-CN","labels":["评论"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: 'dadf241daf4e540204cc669c0857dbc7'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
   </script>
   <noscript>Please enable JavaScript to view the comments</noscript>
 
@@ -518,6 +510,19 @@
 
 
 
+
+
+  <script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 

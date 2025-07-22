@@ -13,7 +13,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Jason">
+  <meta name="author" content="Jason Chen">
   <meta name="keywords" content="">
   
     <meta name="description" content="KMP是什么 在计算机科学中，Knuth-Morris-Pratt字符串查找算法（简称为KMP算法）可在一个字符串S内查找一个词W的出现位置。一个词在不匹配时本身就包含足够的信息来确定下一个匹配可能的开始位置，此算法利用这一特性以避免重新检查先前配对的字符。 这个算法由高德纳和沃恩·普拉特在1974年构思，同年詹姆斯·H·莫里斯也独立地设计出该算法，最终三人于1977年联合发表。 ——wiki">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://image.0error.net/202202101149737.png">
 <meta property="article:published_time" content="2021-10-25T03:46:20.000Z">
 <meta property="article:modified_time" content="2023-11-08T04:25:37.570Z">
-<meta property="article:author" content="Jason">
+<meta property="article:author" content="Jason Chen">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="KMP">
 <meta name="twitter:card" content="summary_large_image">
@@ -363,7 +363,7 @@
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>Jason</div>
+          <div>Jason Chen</div>
         </div>
       
       
@@ -427,29 +427,21 @@
   
     <article id="comments" lazyload>
       
+  <div id="gitalk-container"></div>
   <script type="text/javascript">
-    Fluid.utils.loadComments('#comments', function() {
-      var light = 'github-light';
-      var dark = 'github-dark';
-      var schema = document.documentElement.getAttribute('data-user-color-scheme');
-      if (schema === 'dark') {
-        schema = dark;
-      } else {
-        schema = light;
-      }
-      window.UtterancesThemeLight = light;
-      window.UtterancesThemeDark = dark;
-      var s = document.createElement('script');
-      s.setAttribute('src', 'https://utteranc.es/client.js');
-      s.setAttribute('repo', 'cjjcn/cjjcn.github.io');
-      s.setAttribute('issue-term', 'pathname');
-      
-      s.setAttribute('label', 'Comment');
-      
-      s.setAttribute('theme', schema);
-      s.setAttribute('crossorigin', 'anonymous');
-      document.getElementById('comments').appendChild(s);
-    })
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"e7441e45223030475df5","clientSecret":"1b05699fc25cd4a804acbb167ea9d510b5376984","repo":"cjjcn.github.io","owner":"cjjcn","admin":["cjjcn"],"language":"zh-CN","labels":["评论"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '7c39d194ff858169e1c569386ebfb7c1'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
   </script>
   <noscript>Please enable JavaScript to view the comments</noscript>
 
@@ -511,6 +503,19 @@
 
 
 
+
+
+  <script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 

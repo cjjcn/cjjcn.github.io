@@ -13,7 +13,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Jason">
+  <meta name="author" content="Jason Chen">
   <meta name="keywords" content="">
   
     <meta name="description" content="WriteUp - Maple_root -CISCN2021总结总得分：3400 总排名：203 赛区排名：21 第一次认真参加正式的CTF，24+3小时的脑血栓比赛时长，收获还是很多的。 开卷WEBeasy_sqlSqlmap -r &#x2F;root&#x2F;wordlist&#x2F;table.txt -p uname -D security --tablesSqlmap直接跑出两张表(flag, user)单跑">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://i.loli.net/2021/05/16/lseWVX7Uu61Gwzi.png">
 <meta property="article:published_time" content="2021-05-17T07:17:55.000Z">
 <meta property="article:modified_time" content="2023-11-08T04:25:37.533Z">
-<meta property="article:author" content="Jason">
+<meta property="article:author" content="Jason Chen">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="CISCN">
 <meta property="article:tag" content="WP">
@@ -394,7 +394,7 @@
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>Jason</div>
+          <div>Jason Chen</div>
         </div>
       
       
@@ -458,29 +458,21 @@
   
     <article id="comments" lazyload>
       
+  <div id="gitalk-container"></div>
   <script type="text/javascript">
-    Fluid.utils.loadComments('#comments', function() {
-      var light = 'github-light';
-      var dark = 'github-dark';
-      var schema = document.documentElement.getAttribute('data-user-color-scheme');
-      if (schema === 'dark') {
-        schema = dark;
-      } else {
-        schema = light;
-      }
-      window.UtterancesThemeLight = light;
-      window.UtterancesThemeDark = dark;
-      var s = document.createElement('script');
-      s.setAttribute('src', 'https://utteranc.es/client.js');
-      s.setAttribute('repo', 'cjjcn/cjjcn.github.io');
-      s.setAttribute('issue-term', 'pathname');
-      
-      s.setAttribute('label', 'Comment');
-      
-      s.setAttribute('theme', schema);
-      s.setAttribute('crossorigin', 'anonymous');
-      document.getElementById('comments').appendChild(s);
-    })
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"e7441e45223030475df5","clientSecret":"1b05699fc25cd4a804acbb167ea9d510b5376984","repo":"cjjcn.github.io","owner":"cjjcn","admin":["cjjcn"],"language":"zh-CN","labels":["评论"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '74520489d4dd45d83bb686a8b49c6f86'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
   </script>
   <noscript>Please enable JavaScript to view the comments</noscript>
 
@@ -542,6 +534,19 @@
 
 
 
+
+
+  <script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 

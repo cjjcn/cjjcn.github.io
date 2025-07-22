@@ -13,7 +13,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Jason">
+  <meta name="author" content="Jason Chen">
   <meta name="keywords" content="">
   
     <meta name="description" content="初识程序拿到程序后，先放入PEID进行检测  程序无壳，是32位的，可以直接放入IDA32进行反编译 开始整活进入后找到main函数入口，解析为C语言  有两个函数，一个是_main()函数，一个是func()函数，进入__main发现只有一个if判定没有 没有什么实质性的东西，然后转只能回头找func,进入后确认是主要判定的函数 123456789101112131415161718192021">
@@ -27,7 +27,7 @@
 <meta property="og:image" content="https://i.loli.net/2021/03/19/Rh6WDT8C9ZFbgxE.png">
 <meta property="article:published_time" content="2021-03-19T11:30:45.000Z">
 <meta property="article:modified_time" content="2023-11-08T04:25:37.552Z">
-<meta property="article:author" content="Jason">
+<meta property="article:author" content="Jason Chen">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="RE">
 <meta property="article:tag" content="buu">
@@ -369,7 +369,7 @@
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>Jason</div>
+          <div>Jason Chen</div>
         </div>
       
       
@@ -433,29 +433,21 @@
   
     <article id="comments" lazyload>
       
+  <div id="gitalk-container"></div>
   <script type="text/javascript">
-    Fluid.utils.loadComments('#comments', function() {
-      var light = 'github-light';
-      var dark = 'github-dark';
-      var schema = document.documentElement.getAttribute('data-user-color-scheme');
-      if (schema === 'dark') {
-        schema = dark;
-      } else {
-        schema = light;
-      }
-      window.UtterancesThemeLight = light;
-      window.UtterancesThemeDark = dark;
-      var s = document.createElement('script');
-      s.setAttribute('src', 'https://utteranc.es/client.js');
-      s.setAttribute('repo', 'cjjcn/cjjcn.github.io');
-      s.setAttribute('issue-term', 'pathname');
-      
-      s.setAttribute('label', 'Comment');
-      
-      s.setAttribute('theme', schema);
-      s.setAttribute('crossorigin', 'anonymous');
-      document.getElementById('comments').appendChild(s);
-    })
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"e7441e45223030475df5","clientSecret":"1b05699fc25cd4a804acbb167ea9d510b5376984","repo":"cjjcn.github.io","owner":"cjjcn","admin":["cjjcn"],"language":"zh-CN","labels":["评论"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: '5b73590f8cd6d2b1501875a0fc6a940b'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
   </script>
   <noscript>Please enable JavaScript to view the comments</noscript>
 
@@ -517,6 +509,19 @@
 
 
 
+
+
+  <script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('mermaid' in window) {
+        mermaid.init();
+      }
+    });
+  });
+</script>
 
 
 
