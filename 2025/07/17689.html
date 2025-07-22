@@ -16,25 +16,26 @@
   <meta name="author" content="Jason">
   <meta name="keywords" content="">
   
-    <meta name="description" content="PubMed1234567891011121314151617181920(  pathology[Title&#x2F;Abstract]   OR cytopathology[Title&#x2F;Abstract]   OR &quot;computational pathology&quot;[Title&#x2F;Abstract]   OR &quot;digital pathology&quot;[Title&#x2F;A">
+    <meta name="description" content="将下面内容保存为install.bash，直接用shell执行一把梭解决 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677#!&#x2F;bin&#x2F;bash### ste">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TCT计算病理学文献检索总结">
-<meta property="og:url" content="https://www.0error.net/2025/04/57150.html">
+<meta property="og:title" content="适用于PyTorch 2.0.0的Ubuntu 22.04上CUDA v11.8和cuDNN 8.7安装指南">
+<meta property="og:url" content="https://www.0error.net/2025/07/17689.html">
 <meta property="og:site_name" content="Do1phln&#39;s Blog">
-<meta property="og:description" content="PubMed1234567891011121314151617181920(  pathology[Title&#x2F;Abstract]   OR cytopathology[Title&#x2F;Abstract]   OR &quot;computational pathology&quot;[Title&#x2F;Abstract]   OR &quot;digital pathology&quot;[Title&#x2F;A">
+<meta property="og:description" content="将下面内容保存为install.bash，直接用shell执行一把梭解决 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677#!&#x2F;bin&#x2F;bash### ste">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-25T08:48:56.000Z">
-<meta property="article:modified_time" content="2025-04-28T07:55:44.529Z">
+<meta property="article:published_time" content="2025-07-22T08:58:29.000Z">
+<meta property="article:modified_time" content="2025-07-22T09:00:04.335Z">
 <meta property="article:author" content="Jason">
-<meta property="article:tag" content="Scholar">
-<meta property="article:tag" content="TCT">
+<meta property="article:tag" content="O&amp;M">
+<meta property="article:tag" content="NVIDIA">
+<meta property="article:tag" content="Server">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>TCT计算病理学文献检索总结 - Do1phln&#39;s Blog</title>
+  <title>适用于PyTorch 2.0.0的Ubuntu 22.04上CUDA v11.8和cuDNN 8.7安装指南 - Do1phln&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -228,7 +229,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="TCT计算病理学文献检索总结"></span>
+            <span id="subtitle" data-typed-text="适用于PyTorch 2.0.0的Ubuntu 22.04上CUDA v11.8和cuDNN 8.7安装指南"></span>
           
         </div>
 
@@ -239,8 +240,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-25 16:48" pubdate>
-          2025年4月25日 下午
+        <time datetime="2025-07-22 16:58" pubdate>
+          2025年7月22日 下午
         </time>
       </span>
     
@@ -252,7 +253,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          全文共有 783 字
+          全文共有 2.6k 字
         
       </span>
     
@@ -264,7 +265,7 @@
         
         
           <!-- compatible with older versions-->
-          阅读全文预计需要 7 分钟
+          阅读全文预计需要 22 分钟
         
       </span>
     
@@ -302,13 +303,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">TCT计算病理学文献检索总结</h1>
+            <h1 style="display: none">适用于PyTorch 2.0.0的Ubuntu 22.04上CUDA v11.8和cuDNN 8.7安装指南</h1>
             
               <p class="note note-info">
                 
                   
                     <!-- compatible with older versions-->
-                    本文最后更新于：2025年4月28日 下午
+                    本文最后更新于：2025年7月22日 下午
                   
                 
               </p>
@@ -316,7 +317,10 @@
             
               <div class="markdown-body">
                 
-                <h2 id="PubMed"><a href="#PubMed" class="headerlink" title="PubMed"></a>PubMed</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs text">(<br>  pathology[Title/Abstract] <br>  OR cytopathology[Title/Abstract] <br>  OR &quot;computational pathology&quot;[Title/Abstract] <br>  OR &quot;digital pathology&quot;[Title/Abstract] <br>  OR &quot;liquid-based cytology&quot;[Title/Abstract] <br>  OR LBC[Title/Abstract] <br>  OR TCT[Title/Abstract] <br>  OR &quot;cervical cancer&quot;[Title/Abstract] <br>  OR &quot;cervical neoplasms&quot;[MeSH Terms] <br>  OR &quot;cervical cytology&quot;[Title/Abstract]<br>  OR Pap[Title/Abstract]<br>  OR MIL[Title/Abstract] <br>  OR &quot;multiple instance learning&quot;[Title/Abstract] <br>  OR &quot;weakly supervised learning&quot;[Title/Abstract] <br>  OR &quot;self-supervised learning&quot;[Title/Abstract] <br>  OR &quot;attention mechanism&quot;[Title/Abstract] <br>  OR &quot;transformer&quot;[Title/Abstract]<br>)<br>AND (&quot;2020&quot;[Date - Publication] : &quot;3000&quot;[Date - Publication])<br></code></pre></td></tr></table></figure>
+                <p>将下面内容保存为install.bash，直接用shell执行一把梭解决</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment">## steps ####</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">verify the system has a cuda-capable gpu</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">download and install the nvidia cuda toolkit and cudnn</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">setup environmental variables</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">verify the installation</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment">##</span></span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment">## to verify your gpu is cuda enable check</span></span><br>lspci | grep -i nvidia<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment">## If you have previous installation remove it first.</span></span> <br>sudo apt purge nvidia* -y<br>sudo apt remove nvidia-* -y<br>sudo rm /etc/apt/sources.list.d/cuda*<br>sudo apt autoremove -y &amp;&amp; sudo apt autoclean -y<br>sudo rm -rf /usr/local/cuda*<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">system update</span><br>sudo apt update &amp;&amp; sudo apt upgrade -y<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">install other import packages</span><br>sudo apt install g++ freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">first get the PPA repository driver</span><br>sudo add-apt-repository ppa:graphics-drivers/ppa<br>sudo apt update<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">find recommended driver versions <span class="hljs-keyword">for</span> you</span><br>ubuntu-drivers devices<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">install nvidia driver with dependencies</span><br>sudo apt install libnvidia-common-515 libnvidia-gl-515 nvidia-driver-515 -y<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">reboot</span><br>sudo reboot now<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">verify that the following <span class="hljs-built_in">command</span> works</span><br>nvidia-smi<br><br>sudo wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin<br>sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600<br>sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/3bf863cc.pub<br>sudo add-apt-repository &quot;deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/ /&quot;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Update and upgrade</span><br>sudo apt update &amp;&amp; sudo apt upgrade -y<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"> # </span><span class="language-bash">installing CUDA-11.8</span><br>sudo apt install cuda-11-8 -y<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">setup your paths</span><br>echo &#x27;export PATH=/usr/local/cuda-11.8/bin:$PATH&#x27; &gt;&gt; ~/.bashrc<br>echo &#x27;export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:$LD_LIBRARY_PATH&#x27; &gt;&gt; ~/.bashrc<br>source ~/.bashrc<br>sudo ldconfig<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">install cuDNN v11.8</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">First register here: https://developer.nvidia.com/developer-program/signup</span><br><br>CUDNN_TAR_FILE=&quot;cudnn-linux-x86_64-8.7.0.84_cuda11-archive.tar.xz&quot;<br>sudo wget https://developer.download.nvidia.com/compute/redist/cudnn/v8.7.0/local_installers/11.8/cudnn-linux-x86_64-8.7.0.84_cuda11-archive.tar.xz<br>sudo tar -xvf $&#123;CUDNN_TAR_FILE&#125;<br>sudo mv cudnn-linux-x86_64-8.7.0.84_cuda11-archive cuda<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">copy the following files into the cuda toolkit directory.</span><br>sudo cp -P cuda/include/cudnn.h /usr/local/cuda-11.8/include<br>sudo cp -P cuda/lib/libcudnn* /usr/local/cuda-11.8/lib64/<br>sudo chmod a+r /usr/local/cuda-11.8/lib64/libcudnn*<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Finally, to verify the installation, check</span><br>nvidia-smi<br>nvcc -V<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">install Pytorch (an open <span class="hljs-built_in">source</span> machine learning framework)</span><br>pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118<br></code></pre></td></tr></table></figure>
+<p>转载并汉化自<a target="_blank" rel="noopener" href="https://gist.github.com/MihailCosmin/affa6b1b71b43787e9228c25fe15aeba/raw/3c70bce0a86c5b01e7c52c84aac0449855766419/cuda_11.8_installation_on_Ubuntu_22.04">Github</a></p>
+
                 
               </div>
             
@@ -328,9 +332,11 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/Scholar/">#Scholar</a>
+        <a href="/tags/O-M/">#O&M</a>
       
-        <a href="/tags/TCT/">#TCT</a>
+        <a href="/tags/NVIDIA/">#NVIDIA</a>
+      
+        <a href="/tags/Server/">#Server</a>
       
     </div>
   
@@ -342,8 +348,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>TCT计算病理学文献检索总结</div>
-      <div>https://www.0error.net/2025/04/57150.html</div>
+      <div>适用于PyTorch 2.0.0的Ubuntu 22.04上CUDA v11.8和cuDNN 8.7安装指南</div>
+      <div>https://www.0error.net/2025/07/17689.html</div>
     </div>
     <div class="license-meta">
       
@@ -355,7 +361,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月25日</div>
+          <div>2025年7月22日</div>
         </div>
       
       
@@ -387,18 +393,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/07/17689.html" title="适用于PyTorch 2.0.0的Ubuntu 22.04上CUDA v11.8和cuDNN 8.7安装指南">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">适用于PyTorch 2.0.0的Ubuntu 22.04上CUDA v11.8和cuDNN 8.7安装指南</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/43888.html" title="Zotero-translate插件配置Google访问代理方法">
-                        <span class="hidden-mobile">Zotero-translate插件配置Google访问代理方法</span>
+                      <a href="/2025/04/57150.html" title="TCT计算病理学文献检索总结">
+                        <span class="hidden-mobile">TCT计算病理学文献检索总结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
